@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import main.utilities.ConvertStructureToArray;
 import main.utilities.DisassembleInfoFile;
 import main.utilities.ListBaseFilesWalker;
+import main.utilities.ReadConfig;
 import structure.Group;
 import structure.GroupCollection;
 import structure.GroupComplete;
@@ -24,7 +25,15 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		//Initial steps during start up
-		CustomConstant.ROOT_PATH = new File(".").getCanonicalPath(); //
+		
+		//Read Configuration File
+		ReadConfig configFile = new ReadConfig();
+		if (!configFile.fileExists) {
+			LogFile.write("Program stopped. Path not found or Config File not exists");
+			System.exit(1);
+		};
+		
+		//CustomConstant.ROOT_PATH = new File(".").getCanonicalPath(); //
 	    LogFile.setLogFilename(CustomConstant.ROOT_PATH + "\\dataBaseLog.txt");
 	    CustomConstant.MAIN_FRAME = new MainFrame();  //Draw HMI
 	    CustomConstant.FILTER_TABLE.update(); //add Data in Table
@@ -34,12 +43,13 @@ public class Main {
 	static public void searchFiles () {
 		// --------------------------- List File Directory ------------------------------------//
 
+		new ReadConfig();
     	ListBaseFilesWalker list = new ListBaseFilesWalker();
-    	String searchPath = "\\\\keba\\project\\gba\\abteilungen\\ae\\KePlast\\Applications";
-    	//ArrayList<File> listFileBase = list.walk(searchPath);
+    	//String searchPath = "\\\\keba\\project\\gba\\abteilungen\\ae\\KePlast\\Applications";
+    	
     	ArrayList<File> listFileBase = list.walk(CustomConstant.ROOT_PATH);
-
-		// ---------------------- Compare/Search KePlast Base Files----------------------------//
+    	
+    	// ---------------------- Compare/Search KePlast Base Files----------------------------//
 		KeplastDataBaseList = new GroupCollection();
 		//parse files -> collect in structured list
 		for (File file : listFileBase) {
