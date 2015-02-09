@@ -14,7 +14,7 @@ public class DisassembleInfoFile {
 	final 	static 	String 		RawPath				= "RawPath";
 	final 	static	String		LineBreak			= "\r\n"; 	
 	
-			static 	File 		fileInt 			= null;
+	private static 	File 		fileInt 			= null;
 			
 	private static	String 		lookForOld			= "";
 	private static  int 		endIdx				= 0;

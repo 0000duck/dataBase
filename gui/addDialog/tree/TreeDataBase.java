@@ -12,8 +12,6 @@ import javax.swing.tree.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 
-import com.sun.media.sound.ModelAbstractChannelMixer;
-
 import utilities.ProjectParam;
 
 public class TreeDataBase extends JPanel {

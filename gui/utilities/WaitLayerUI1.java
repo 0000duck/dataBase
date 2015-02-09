@@ -45,7 +45,7 @@ public class WaitLayerUI1 extends LayerUI<JPanel> implements ActionListener {
  
   @Override
   public void paint (Graphics g, JComponent c) {
-    System.out.println("Paint");
+    //System.out.println("Paint");
 	int w = c.getWidth();
     int h = c.getHeight();
  
@@ -89,7 +89,7 @@ public class WaitLayerUI1 extends LayerUI<JPanel> implements ActionListener {
       g2.drawLine(cx + s, cy, cx + s * 2, cy);
       g2.drawLine(cx + s, cy, cx + s * 2, cy);
       g2.rotate(-Math.PI / 6, cx, cy);
-      System.out.println( scale + ", " + fade);
+      //System.out.println( scale + ", " + fade);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,scale * fade));
     }
  
@@ -97,7 +97,7 @@ public class WaitLayerUI1 extends LayerUI<JPanel> implements ActionListener {
   }
  
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("actionPerf");
+		//System.out.println("actionPerf");
 		if (mIsRunning) {
 			firePropertyChange("tick", 0, 1);
 			mAngle += 3;
@@ -113,7 +113,7 @@ public class WaitLayerUI1 extends LayerUI<JPanel> implements ActionListener {
 					mTimer.stop();
 				}
 			} else if (mFadeCount < mFadeLimit) {
-				System.out.println("mFadeCount: " + mFadeCount);
+//				System.out.println("mFadeCount: " + mFadeCount);
 				mFadeCount++;
 			}
 		}

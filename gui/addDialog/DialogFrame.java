@@ -3,7 +3,6 @@ package gui.addDialog;
 import gui.addDialog.fileList.FileListAll;
 import gui.addDialog.fileList.FileListSelected;
 import gui.addDialog.tree.TreeDataBase;
-import gui.draw.MainFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;
@@ -32,7 +31,6 @@ import utilities.ProjectParam;
 
 public class DialogFrame {
 
-	private JFrame frame;
 	private JDialog jDialog; 
 	
 	private ShowMessageLabel stateShownField;
