@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultRowSorter;
@@ -64,15 +65,17 @@ import com.sun.media.sound.ModelAbstractChannelMixer;
 import com.sun.naming.internal.ResourceManager;
 
 import main.Main;
+import main.utilities.ConvertStructureToArray;
+import main.utilities.SerializeDataStr;
 import structure.DummyFileInfo;
 import structure.DummyIconPath;
 import structure.Group;
 import structure.GroupCollection;
 import sun.security.util.ResourcesMgr;
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 import utilities.LogFile;
 
-public class FilterTable extends JPanel {
+public class FilterTable extends JPanel implements Serializable {
 	
 	private static final String header = "Header";
 	private static final String type = "Type";
@@ -135,11 +138,19 @@ public class FilterTable extends JPanel {
 //		id, autor, version };
 
 // create objects for table and layout
+
+		
 		Object[][] arrayTwoDim;
 //if (Main.arrayTwoDim != null){
 //	arrayTwoDim = Main.arrayTwoDim;
 //} else {
-		arrayTwoDim = new Object[][] {};
+		SerializeDataStr serialize = new SerializeDataStr();
+		GroupCollection serializedData = (GroupCollection) serialize.getSerialized();
+		if (serialize.fileExists) {
+			arrayTwoDim = ConvertStructureToArray.convert(serializedData);
+		} else {
+			arrayTwoDim = new Object[][] {};			
+		}
 			//{null,null,null,null,null,null,null,null,null},
 			//{null,null,null,null,null,null,null,null,null}
 //}
@@ -202,7 +213,7 @@ public class FilterTable extends JPanel {
 		//jTextLabelDetail.setMinimumSize(new Dimension(100,100));
 		hilit = new DefaultHighlighter();
 		jTextLabelDetail.setHighlighter(hilit);
-		painter = new DefaultHighlighter.DefaultHighlightPainter(CustomConstant.ALTERNATING_ROW_COL);
+		painter = new DefaultHighlighter.DefaultHighlightPainter(ProjectParam.ALTERNATING_ROW_COL);
 
 		panelBottomframe.add(panelBottomNorth,BorderLayout.CENTER);
 		panelBottomframe.add(panelBottomSouth,BorderLayout.SOUTH);
@@ -395,7 +406,7 @@ public class FilterTable extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent action) {
 				try {
-					Desktop.getDesktop().open(new File(CustomConstant.ROOT_PATH ));
+					Desktop.getDesktop().open(new File(ProjectParam.ROOT_PATH ));
 					//tap.setBusy();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -484,7 +495,7 @@ public class FilterTable extends JPanel {
 		
 		int Count = rowSorter.getViewRowCount();
 		if (Count == 0) {
-			jtfFilterField.setBackground(CustomConstant.NO_MATCH_COL);
+			jtfFilterField.setBackground(ProjectParam.NO_MATCH_COL);
 		} else {
 			jtfFilterField.setBackground(Color.WHITE);
 		}
@@ -533,7 +544,10 @@ public class FilterTable extends JPanel {
 	    @Override public Object[][] doInBackground()
 	    {
 	    	Main.searchFiles();
-			return Main.arrayTwoDim;
+	    	SerializeDataStr serialize = new SerializeDataStr();
+	    	serialize.doSerializing();
+	    	return Main.arrayTwoDim;
+			
 	    }
 
 	    @Override protected void done()

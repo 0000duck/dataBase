@@ -1,6 +1,8 @@
 package structure;
 
-public class GroupComplete {
+import java.io.Serializable;
+
+public class GroupComplete implements Serializable {
 
 	private Group group;
 	private GroupInfo groupInfo;

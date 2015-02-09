@@ -1,9 +1,10 @@
 package structure;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group {
+public class Group implements Serializable{
 
 	private ArrayList<File> ElementGroup;
 

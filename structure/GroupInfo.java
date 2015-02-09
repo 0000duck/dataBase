@@ -1,9 +1,10 @@
 package structure;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GroupInfo {
+public class GroupInfo implements Serializable {
 
 	private String Id, Header, Description, Version, Keywords, Autor, Type, Path;
 	private ArrayList<File> arraylist;

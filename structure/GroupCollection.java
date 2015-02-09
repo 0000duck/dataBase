@@ -1,9 +1,10 @@
 package structure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupCollection { //TODO: delete this class
+public class GroupCollection implements Serializable { //TODO: delete this class
 
 	private List<GroupComplete> groupElements;
 
