@@ -42,7 +42,7 @@ import java.io.Serializable;
 import structure.DummyFileInfo;
 import structure.DummyIconPath;
 import sun.swing.DefaultLookup;
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 /**
  * The standard class for rendering (displaying) individual cells in a
@@ -421,7 +421,7 @@ public class TableCellRendererJTextArea extends JLabel implements
 			setIcon(null);
 			UtilitiesHiglight.findText((String)value,FilterTable.text); //FiXME value must be checked for String 
 			if (UtilitiesHiglight.start != -1) {
-				super.setBackground(CustomConstant.HIGHLIGHT_COL);
+				super.setBackground(ProjectParam.HIGHLIGHT_COL);
 			} else {
 				super.setBackground(null);
 			}

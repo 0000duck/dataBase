@@ -7,7 +7,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class MainFrame extends JFrame {
 
@@ -16,8 +16,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		
 		super("DataBase");
-		CustomConstant.FILTER_TABLE = new FilterTable();
-		this.add(CustomConstant.FILTER_TABLE);
+		ProjectParam.FILTER_TABLE = new FilterTable();
+		this.add(ProjectParam.FILTER_TABLE);
 		this.setPreferredSize(new Dimension(1300, 800));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

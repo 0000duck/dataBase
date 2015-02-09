@@ -3,7 +3,7 @@ package main.utilities;
 import java.io.File;
 import java.util.ArrayList;
 
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class ListBaseFilesWalker {
 
@@ -26,7 +26,7 @@ public class ListBaseFilesWalker {
 //				System.out.println("found directory:" + file.getAbsoluteFile());
 				walk(file.getAbsolutePath());
 			} else {
-				if ((file.getName()).toLowerCase().endsWith(CustomConstant.DATA_BASE_FILE_EXT.toLowerCase())) {
+				if ((file.getName()).toLowerCase().endsWith(ProjectParam.DATA_BASE_FILE_EXT.toLowerCase())) {
 //					System.out.println("Found database file:" + file.getAbsoluteFile());
 					listFiles.add(file);
 				}

@@ -14,7 +14,7 @@ import javax.swing.event.*;
 
 import com.sun.media.sound.ModelAbstractChannelMixer;
 
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class TreeDataBase extends JPanel {
 
@@ -39,7 +39,7 @@ public class TreeDataBase extends JPanel {
 		DefaultMutableTreeNode node;
 		String searchPath = "\\\\keba\\project\\gba\\abteilungen\\ae\\KePlast\\Applications";
 		//File[] roots = { new File(searchPath) /*+ "//WorkBase"*/ };
-		File[] roots = { new File(CustomConstant.ROOT_PATH) /*+ "//WorkBase"*/ };
+		File[] roots = { new File(ProjectParam.ROOT_PATH) /*+ "//WorkBase"*/ };
 		for (int k = 0; k < roots.length; k++) {
 			node = new DefaultMutableTreeNode(new IconData(ICON_DISK, null,
 					new FileNode(roots[k])));

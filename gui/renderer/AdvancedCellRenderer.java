@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 import structure.DummyIconPath;
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class AdvancedCellRenderer extends TableCellRendererJTextArea {
 
@@ -46,7 +46,7 @@ public class AdvancedCellRenderer extends TableCellRendererJTextArea {
 			if (value instanceof String) {
 				UtilitiesHiglight.findText((String)value,FilterTable.text); //FIXME value must be checked for String 
 				if ((UtilitiesHiglight.start != -1) && (column != (FilterTable.columnNrDialog)) && (column != (FilterTable.columnNrExp))) {
-					super.setBackground(CustomConstant.ALTERNATING_ROW_COL);
+					super.setBackground(ProjectParam.ALTERNATING_ROW_COL);
 				} else {
 					super.setBackground(null);
 				}	
@@ -55,7 +55,7 @@ public class AdvancedCellRenderer extends TableCellRendererJTextArea {
 				super.setBackground(null);	
 			}
 		} else {
-			renderer.setBackground(row % 2 == 0 ? null : CustomConstant.ALTERNATING_ROW_COL);
+			renderer.setBackground(row % 2 == 0 ? null : ProjectParam.ALTERNATING_ROW_COL);
 		}
 		return renderer;
 	}

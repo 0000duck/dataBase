@@ -14,7 +14,7 @@ import structure.Group;
 import structure.GroupCollection;
 import structure.GroupComplete;
 import structure.GroupInfo;
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 import utilities.LogFile;
 
 public class Main {
@@ -34,20 +34,18 @@ public class Main {
 		};
 		
 		//CustomConstant.ROOT_PATH = new File(".").getCanonicalPath(); //
-	    LogFile.setLogFilename(CustomConstant.ROOT_PATH + "\\dataBaseLog.txt");
-	    CustomConstant.MAIN_FRAME = new MainFrame();  //Draw HMI
-	    CustomConstant.FILTER_TABLE.update(); //add Data in Table
+	    LogFile.setLogFilename(ProjectParam.ROOT_PATH + "\\dataBaseLog.txt");
+	    ProjectParam.MAIN_FRAME = new MainFrame();  //Draw HMI
+	    ProjectParam.FILTER_TABLE.update(); //add Data in Table
 		
 	}
 	
 	static public void searchFiles () {
 		// --------------------------- List File Directory ------------------------------------//
-
-		new ReadConfig();
     	ListBaseFilesWalker list = new ListBaseFilesWalker();
     	//String searchPath = "\\\\keba\\project\\gba\\abteilungen\\ae\\KePlast\\Applications";
     	
-    	ArrayList<File> listFileBase = list.walk(CustomConstant.ROOT_PATH);
+    	ArrayList<File> listFileBase = list.walk(ProjectParam.ROOT_PATH);
     	
     	// ---------------------- Compare/Search KePlast Base Files----------------------------//
 		KeplastDataBaseList = new GroupCollection();

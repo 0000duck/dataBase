@@ -4,9 +4,8 @@ import gui.draw.MainFrame;
 import gui.table.FilterTable;
 
 import java.awt.Color;
-import java.io.File;
 
-public final class CustomConstant {
+public final class ProjectParam {
 
 	//COLORS --------------------------------------------------------------------------------------------
 	

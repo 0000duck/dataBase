@@ -28,7 +28,7 @@ import main.Main;
 import structure.GroupComplete;
 import structure.GroupInfo;
 import structure.ShowMessageLabel;
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class DialogFrame {
 
@@ -80,11 +80,11 @@ public class DialogFrame {
 		//frame = new JFrame( "Create *.dataBase File");
 		//frame.setPreferredSize(new Dimension(570,712));
 		//frame.setLocationRelativeTo(CustomConstant.MAIN_FRAME);
-		jDialog= new JDialog(CustomConstant.MAIN_FRAME,Dialog.ModalityType.APPLICATION_MODAL);
+		jDialog= new JDialog(ProjectParam.MAIN_FRAME,Dialog.ModalityType.APPLICATION_MODAL);
 		jDialog.setTitle("Create DataBase File");
      	jDialog.setModal(true);
      	jDialog.setSize(new Dimension(570,712));
-     	jDialog.setLocationRelativeTo(CustomConstant.MAIN_FRAME);
+     	jDialog.setLocationRelativeTo(ProjectParam.MAIN_FRAME);
 		addComponents();
 
 //		jDialog.setLocationRelativeTo(CustomConstant.MAIN_FRAME);
@@ -110,7 +110,7 @@ public class DialogFrame {
 		String s = Integer.toString(Id);
 		int length = s.length();
 		String nullCont = "";
-		int count = CustomConstant.ID_DIGITS - length;
+		int count = ProjectParam.ID_DIGITS - length;
 		for (int i = 0; i < count; i++) {
 			nullCont = nullCont.concat("0");
 		}
@@ -140,7 +140,7 @@ public class DialogFrame {
 	
 	private void newFile () {
 		 textId.setText(addDigits(getNextId()));
-		 saveDirectory.setText(CustomConstant.ROOT_PATH );
+		 saveDirectory.setText(ProjectParam.ROOT_PATH );
 		 saveDirectory.setToolTipText(saveDirectory.getText());
 		 fileList.addListEntries(saveDirectory.getText());
 		 directoryButton.setEnabled(true);
@@ -289,7 +289,7 @@ public class DialogFrame {
 		stateShownField = new ShowMessageLabel();
 		//stateShownField.setText("Hello");
 		stateShownField.setFont(new Font("Arial",Font.PLAIN,12));
-		stateShownField.setForeground(CustomConstant.NO_MATCH_COL);
+		stateShownField.setForeground(ProjectParam.NO_MATCH_COL);
 		//outerPanel2.add(stateShownField,BorderLayout.SOUTH);
 		
 		
@@ -335,9 +335,9 @@ public class DialogFrame {
 					//frame.dispose();
 					jDialog.dispose();
 	//				FilterTable.dialogFrame = null;		
-					CustomConstant.FILTER_TABLE.update();
+					ProjectParam.FILTER_TABLE.update();
 				} else {
-					textVersion.setBackground(CustomConstant.NO_MATCH_COL);
+					textVersion.setBackground(ProjectParam.NO_MATCH_COL);
 					stateShownField.setTimerText("Syntex Version Input wrong", 2);
 				}
 

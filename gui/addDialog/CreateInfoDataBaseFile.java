@@ -5,7 +5,7 @@ import gui.addDialog.fileList.FileListSelected;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import utilities.CustomConstant;
+import utilities.ProjectParam;
 
 public class CreateInfoDataBaseFile {
 
@@ -25,7 +25,7 @@ public class CreateInfoDataBaseFile {
 	private String name = null;
 
 	public CreateInfoDataBaseFile() {
-		name = CustomConstant.ROOT_PATH + "\\" + DialogFrame.textId.getText() + infoFileType;
+		name = ProjectParam.ROOT_PATH + "\\" + DialogFrame.textId.getText() + infoFileType;
 		makeFile();
 	}
 
