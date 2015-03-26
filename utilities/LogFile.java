@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class LogFile {
 
-	private static String logFile = "dataBaseLog.txt";
+	private static String logFile;
 	private final static DateFormat df = new SimpleDateFormat("yyyy.MM.dd  hh:mm:ss ");
 
 	private LogFile() {

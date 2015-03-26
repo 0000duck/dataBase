@@ -4,6 +4,7 @@ import gui.draw.MainFrame;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import main.utilities.ConvertStructureToArray;
@@ -26,15 +27,23 @@ public class Main {
 		
 		//Initial steps during start up
 		
+		//Set up log file
+		LogFile.setLogFilename("\\dataBaseLog.txt");
+	
 		//Read Configuration File
 		ReadConfig configFile = new ReadConfig();
 		if (!configFile.fileExists) {
 			LogFile.write("Program stopped. Path not found or Config File not exists");
 			System.exit(1);
 		};
+
+		//Check if data folder exists
+		File dataPath = new File(ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER);
+		if (!(dataPath.isDirectory())) {
+			dataPath.mkdir();
+		}
 		
 		//CustomConstant.ROOT_PATH = new File(".").getCanonicalPath(); //
-	    LogFile.setLogFilename(ProjectParam.ROOT_PATH + "\\dataBaseLog.txt");
 	    ProjectParam.MAIN_FRAME = new MainFrame();  //Draw HMI
 	    ProjectParam.FILTER_TABLE.update(); //add Data in Table
 		
