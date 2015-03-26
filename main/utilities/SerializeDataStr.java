@@ -11,11 +11,12 @@ import java.util.Date;
 
 import structure.GroupCollection;
 import structure.GroupComplete;
+import utilities.ProjectParam;
 import main.Main;
 
 public class SerializeDataStr {
 	
-	final static String filename = "row_data_ser";
+	final static String filename = ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER + "row_data_ser";
 	public boolean fileExists = false;
 	
 //	public Serlialization() {
