@@ -173,6 +173,8 @@ public class FilterTable extends JPanel implements Serializable {
 		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		jTable.setAutoscrolls(false);
 		jTable.setAutoCreateRowSorter(false);
+		
+		jTable.getTableHeader().setReorderingAllowed(false);
 
 		// Disable table's cell selection.
 		//
@@ -508,7 +510,7 @@ public class FilterTable extends JPanel implements Serializable {
 		busyLayer.setBusy();
 		refreshButton.setEnabled(false);
 		//addButton.setEnabled(false);
-		rootButton.setEnabled(false);
+		//rootButton.setEnabled(false);
 		//Main.searchFiles();
 		JTableProperties();
 		new UpdateDataBase().execute();
