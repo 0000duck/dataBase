@@ -3,5 +3,10 @@
 /.metadata/
 /bin/
 /tests/
+/dataBase/
+
+dataBase.config
+export.xml
 
 *.rar
+*KePlastDataBase.jar
