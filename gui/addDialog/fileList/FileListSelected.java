@@ -113,6 +113,7 @@ public class FileListSelected extends JPanel {
 				String selString = (String) fileList.getSelectedValue();
 				if (selString != null && !selString.isEmpty()) {
 					popup.show(fileList, x, y);
+					popup.updateUI();
 					clickedPath = selString;
 					selectedidx = fileList.getSelectedIndex();
 					//m_clickedPath = path;
