@@ -142,6 +142,11 @@ public class DialogFrame {
 		 saveDirectory.setToolTipText(saveDirectory.getText());
 		 fileList.addListEntries(saveDirectory.getText());
 		 directoryButton.setEnabled(true);
+		 
+		 //prefill textfields
+		 textVersion.setText("1.0");
+		 textAutor.setText(System.getProperty("user.name"));
+		 
 	}	
 
 	private void addComponents() {
