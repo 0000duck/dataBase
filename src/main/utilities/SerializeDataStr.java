@@ -16,7 +16,7 @@ import main.Main;
 
 public class SerializeDataStr {
 	
-	final static String filename = ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER + "row_data_ser";
+	final static String filename = ProjectParam.ROOTH_PATH_APPL + ProjectParam.DATA_FOLDER + "row_data_ser";
 	public boolean fileExists = false;
 	
 //	public Serlialization() {

@@ -10,12 +10,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -31,7 +33,7 @@ import utilities.ProjectParam;
 
 public class DialogFrame {
 
-	private JDialog jDialog; 
+	private static JDialog jDialog; 
 	
 	private ShowMessageLabel stateShownField;
 	
@@ -102,6 +104,17 @@ public class DialogFrame {
 		}
 		return tmpId + 1;
 	}
+	
+	private static int getNextIdFile(){
+		int id = ReadId.readIdAndIncrement(new File(ReadId.FILENAME));
+//		ReadId readId = new ReadId();
+//		int Id = readId.ReadId();
+//		if (!readId.fileExists) {
+//			//jDialog.dispose();
+//			JOptionPane.showMessageDialog(jDialog, "Error reading Id from Text file");
+//		} 
+		return id;
+	}
 
 	//TODO: use generic code to produce leading zeros
 	private static String addDigits(int Id) {
@@ -137,7 +150,7 @@ public class DialogFrame {
 	}
 	
 	private void newFile () {
-		 textId.setText(addDigits(getNextId()));
+		 textId.setText(addDigits(getNextIdFile()));
 		 saveDirectory.setText(ProjectParam.ROOT_PATH );
 		 saveDirectory.setToolTipText(saveDirectory.getText());
 		 fileList.addListEntries(saveDirectory.getText());

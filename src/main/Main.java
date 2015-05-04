@@ -27,6 +27,9 @@ public class Main {
 		
 		//Initial steps during start up
 		
+		//get root path of *.jar file
+		getApplicationRoot();
+		
 		//Set up log file
 		LogFile.setLogFilename("\\dataBaseLog.txt");
 	
@@ -36,7 +39,8 @@ public class Main {
 			LogFile.write("Program stopped. Path not found or Config File not exists");
 			System.exit(1);
 		};
-
+	
+		
 		//Check if data folder exists
 		File dataPath = new File(ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER);
 		if (!(dataPath.isDirectory())) {
@@ -49,6 +53,16 @@ public class Main {
 		
 	}
 	
+	private static void getApplicationRoot() {
+		File fileRoot = new File("Root.txt");
+		String absPathRoot = fileRoot.getAbsolutePath();
+		//String fileNameRoot = fileRoot.getPath();
+		String rootPathAppl = absPathRoot.substring(0,absPathRoot.lastIndexOf(File.separator));
+		ProjectParam.ROOTH_PATH_APPL = rootPathAppl;
+		LogFile.write("Appl Root path: " + ProjectParam.ROOTH_PATH_APPL);
+		
+	}
+
 	static public void searchFiles () {
 		// --------------------------- List File Directory ------------------------------------//
     	ListBaseFilesWalker list = new ListBaseFilesWalker();
