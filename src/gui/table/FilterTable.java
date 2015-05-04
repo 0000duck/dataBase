@@ -118,7 +118,7 @@ public class FilterTable extends JPanel implements Serializable {
 	//combobox select column for filter
 	private JComboBox cbFilterVariant = null;
 	
-	private JTextArea jTextLabelDetail;
+	private JTextArea displCellDetailsLabel;
 	
 	public static DialogFrame dialogFrame;
 
@@ -201,20 +201,21 @@ public class FilterTable extends JPanel implements Serializable {
 		panelBottomNorth.setBorder(new EmptyBorder(5,5,15,5));
 		panelBottomSouth.setBorder(new EmptyBorder(5,5,5,5));
 		
-		jTextLabelDetail = new JTextArea();
-
 		
-		jTextLabelDetail.setLineWrap(true);
-		jTextLabelDetail.setWrapStyleWord(true);
-		jTextLabelDetail.setEditable(false);
-		jTextLabelDetail.setText("- no selection - ");
-		//jTextLabelDetail.setMaximumSize(new Dimension(25,25));
-		//jTextLabelDetail.setPreferredSize(new Dimension(100,100));
-		jTextLabelDetail.setFont(new Font("Arial", Font.ITALIC, 13));
-		jTextLabelDetail.setBackground(UIManager.getColor(panelBottomframe));
+		
+
+		displCellDetailsLabel = new JTextArea(6,0);
+		displCellDetailsLabel.setLineWrap(true);
+		displCellDetailsLabel.setWrapStyleWord(true);
+		displCellDetailsLabel.setEditable(false);
+		displCellDetailsLabel.setText("- no selection - ");
+		//displCellDetailsLabel.setMaximumSize(new Dimension(0,50));
+		//displCellDetailsLabel.setPreferredSize(new Dimension(0,50));
+		displCellDetailsLabel.setFont(new Font("Arial", Font.ITALIC, 13));
+		displCellDetailsLabel.setBackground(UIManager.getColor(panelBottomframe));
 		//jTextLabelDetail.setMinimumSize(new Dimension(100,100));
 		hilit = new DefaultHighlighter();
-		jTextLabelDetail.setHighlighter(hilit);
+		displCellDetailsLabel.setHighlighter(hilit);
 		painter = new DefaultHighlighter.DefaultHighlightPainter(ProjectParam.ALTERNATING_ROW_COL);
 
 		panelBottomframe.add(panelBottomNorth,BorderLayout.CENTER);
@@ -236,8 +237,15 @@ public class FilterTable extends JPanel implements Serializable {
 		//splitPane.rigt
 		
 		//panelBottomNorth.setMinimumSize(new Dimension(100,50));
+		
+		//Embed cell display label in scroll bar panel
+		JScrollPane scrollbarCellDetails = new JScrollPane(displCellDetailsLabel);
+		//scrollbarCellDetails.setPreferredSize(new Dimension(0,100));
+
+
 		panelBottomNorth.add(new JSeparator(),BorderLayout.NORTH);
-		panelBottomNorth.add(jTextLabelDetail,BorderLayout.CENTER);
+		panelBottomNorth.add(scrollbarCellDetails,BorderLayout.CENTER);
+		scrollbarCellDetails.setBorder(new EmptyBorder(0,0,0,0));
 		//panelBottomNorth.setMaximumSize(new Dimension(25,25));
 		
 		
@@ -292,9 +300,9 @@ public class FilterTable extends JPanel implements Serializable {
 					} else {
 						show.setText((String) model.getValueAt(row, column));
 					}
-					jTextLabelDetail.setText(show.getText());
-					jTextLabelDetail.setForeground(null);
-					jTextLabelDetail.setFont(new Font("Arial",Font.ITALIC, 13));
+					displCellDetailsLabel.setText(show.getText());
+					displCellDetailsLabel.setForeground(null);
+					displCellDetailsLabel.setFont(new Font("Arial",Font.ITALIC, 13));
 
 				}
 
@@ -466,7 +474,7 @@ public class FilterTable extends JPanel implements Serializable {
 		} else {
 
 			hilit.removeAllHighlights();
-			String labelText = jTextLabelDetail.getText();
+			String labelText = displCellDetailsLabel.getText();
 			int cuttPos = 0;
 			do {
 				UtilitiesHiglight.findText(labelText,text);
