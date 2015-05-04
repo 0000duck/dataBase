@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -220,21 +221,26 @@ public class DialogFrame {
 		inputPanel.setPreferredSize(new Dimension (100,280));
 		JPanel mainPanel = new JPanel (new BorderLayout());
 		JPanel mainCenter = new JPanel (new BorderLayout());
-		JPanel mainCenterMain = new JPanel (new BorderLayout());
+		JPanel listMainPanel = new JPanel (new BorderLayout());
 		
 		treeDataBase = new TreeDataBase();
-		mainCenterMain.setBorder(BorderFactory.createTitledBorder(null, "Add/Remove Files from Group",0,0,headerFont));
-		JPanel outerPanel2 = new JPanel (new BorderLayout(20,20));
+		listMainPanel.setBorder(BorderFactory.createTitledBorder(null, "Add/Remove Files from Group",0,0,headerFont));
+		//JPanel outerPanel2 = new JPanel (new BorderLayout(20,20));
+		JPanel outerPanel2 = new JPanel (new GridLayout(2,1));
 		outerPanel2.setBorder(new EmptyBorder(0,15,10,15));
-		JPanel outerPanel3 = new JPanel (new BorderLayout());
-		outerPanel3.setBorder(BorderFactory.createTitledBorder(null,"Save Directory",0,0,headerFont));
-		JPanel innerPanel3 = new JPanel(new BorderLayout());
-		innerPanel3.add(saveDirectory,BorderLayout.CENTER);
-		innerPanel3.add(treeDataBase,BorderLayout.NORTH);
-		innerPanel3.setBorder(new EmptyBorder(0,2,2,2));
-		outerPanel3.add(innerPanel3,BorderLayout.CENTER);
-		outerPanel2.add(outerPanel3,BorderLayout.NORTH);
-		outerPanel2.add(mainCenterMain,BorderLayout.CENTER);
+		JPanel treeMainPanel = new JPanel (new BorderLayout());
+		treeMainPanel.setBorder(BorderFactory.createTitledBorder(null,"Save Directory",0,0,headerFont));
+		BorderLayout brdInner3 = new BorderLayout();
+		JPanel treeMainInnerPanel = new JPanel(new BorderLayout());
+		treeMainInnerPanel.setBorder(new EmptyBorder(5,5,5,5));
+		JPanel treeMainInnerSouthPanel = new JPanel(new BorderLayout());
+		treeMainInnerSouthPanel.add(saveDirectory,BorderLayout.CENTER);
+		treeMainInnerPanel.add(treeMainInnerSouthPanel,BorderLayout.SOUTH);
+		treeMainInnerPanel.add(treeDataBase,BorderLayout.CENTER);
+		//treeMainInnerPanel.setBorder(new EmptyBorder(0,2,2,2));
+		treeMainPanel.add(treeMainInnerPanel,BorderLayout.CENTER);
+		outerPanel2.add(treeMainPanel,BorderLayout.NORTH);
+		outerPanel2.add(listMainPanel,BorderLayout.CENTER);
 		mainCenter.add(outerPanel,BorderLayout.NORTH);
 		mainCenter.add(outerPanel2,BorderLayout.CENTER);
 		mainPanel.add(mainCenter,BorderLayout.CENTER);
@@ -295,10 +301,15 @@ public class DialogFrame {
 		springLayout.putConstraint(SpringLayout.WEST, scrollpaneDescription, width2, SpringLayout.WEST, inputPanel);
 		springLayout.putConstraint(SpringLayout.NORTH, scrollpaneDescription, 155, SpringLayout.NORTH, inputPanel);
 		
+		
+		//Add Remove Files from list
+		JPanel listArrangePanel = new JPanel(new GridLayout(1,2));
+		listMainPanel.add(listArrangePanel, BorderLayout.CENTER);
+		
 		fileList = new FileListAll();
-		mainCenterMain.add(fileList,BorderLayout.WEST);
+		listArrangePanel.add(fileList);
 		fileListSelected = new FileListSelected();
-		mainCenterMain.add(fileListSelected,BorderLayout.EAST);
+		listArrangePanel.add(fileListSelected);
 		
 
 		
@@ -312,7 +323,7 @@ public class DialogFrame {
 		directoryButton = new JButton("Select");
 		directoryButton.setFont(labelFont);
 		directoryButton.setPreferredSize(new Dimension(80,25));
-		innerPanel3.add(directoryButton,BorderLayout.EAST);
+		treeMainInnerSouthPanel.add(directoryButton,BorderLayout.EAST);
 		directoryButton.addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent action) {

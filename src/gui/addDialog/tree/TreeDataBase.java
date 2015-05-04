@@ -59,7 +59,7 @@ public class TreeDataBase extends JPanel {
 		m_tree.setShowsRootHandles(true);
 		m_tree.setEditable(false);
 		JScrollPane s = new JScrollPane();
-		s.setPreferredSize(new Dimension(100, 120));
+		//s.setPreferredSize(new Dimension(100, 120));
 		s.getViewport().add(m_tree);
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(0, 0, 3, 0));
