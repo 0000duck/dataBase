@@ -27,11 +27,11 @@ public class Main {
 		
 		//Initial steps during start up
 		
-		//get root path of *.jar file
-		getApplicationRoot();
-		
 		//Set up log file
 		LogFile.setLogFilename("\\dataBaseLog.txt");
+		
+		//get root path of *.jar file
+		getApplicationRoot();
 	
 		//Read Configuration File
 		ReadConfig configFile = new ReadConfig();
