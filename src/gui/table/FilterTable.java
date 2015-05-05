@@ -50,6 +50,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -255,6 +257,48 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		panelBottomSouth.add(jtfFilterField, BorderLayout.CENTER);
 		
+		
+		ListSelectionListener tableSelectionListener = new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				//System.out.println("selection changed " + e.toString());
+				try {
+					
+					//get correct row even if  table is filtered
+					int selRow = jTable.getSelectedRow();
+					int row =  jTable.convertRowIndexToModel(selRow);	
+					int column = jTable.getSelectedColumn();
+					
+					JTextArea show = new JTextArea();
+					if (model.getValueAt(row, column) instanceof JTextArea) {
+						show = (JTextArea) model.getValueAt(row, column);
+						
+					} else if (model.getValueAt(row, column) instanceof DummyIconPath) {
+						show.setText("- no selection - ");
+					} else if (model.getValueAt(row, column) instanceof DummyFileInfo) {
+						show.setText("- no selection - ");
+					} else {
+						show.setText((String) model.getValueAt(row, column));
+					}
+					displCellDetailsLabel.setText(show.getText());
+					displCellDetailsLabel.setForeground(null);
+					displCellDetailsLabel.setFont(new Font("Arial",Font.ITALIC, 13));	
+					
+				} catch (Exception e2) {
+					System.out.println("Out of Bounds exception during table selection changed");
+					// TODO: handle exception
+				}
+
+
+
+			}
+			
+		};
+		
+		jTable.getColumnModel().getSelectionModel().addListSelectionListener(tableSelectionListener);
+		jTable.getSelectionModel().addListSelectionListener(tableSelectionListener);
+		
 		// open explorer
 		jTable.addMouseListener(new MouseAdapter() {
 
@@ -288,24 +332,24 @@ public class FilterTable extends JPanel implements Serializable {
 					}
 				}
 				
-				if (e.getClickCount() == 1) {
-
-					JTextArea show = new JTextArea();
-					if (model.getValueAt(row, column) instanceof JTextArea) {
-						show = (JTextArea) model.getValueAt(row, column);
-						
-					} else if (model.getValueAt(row, column) instanceof DummyIconPath) {
-						show.setText("- no selection - ");
-					} else if (model.getValueAt(row, column) instanceof DummyFileInfo) {
-						show.setText("- no selection - ");
-					} else {
-						show.setText((String) model.getValueAt(row, column));
-					}
-					displCellDetailsLabel.setText(show.getText());
-					displCellDetailsLabel.setForeground(null);
-					displCellDetailsLabel.setFont(new Font("Arial",Font.ITALIC, 13));
-
-				}
+//				if (e.getClickCount() == 1) {
+//
+//					JTextArea show = new JTextArea();
+//					if (model.getValueAt(row, column) instanceof JTextArea) {
+//						show = (JTextArea) model.getValueAt(row, column);
+//						
+//					} else if (model.getValueAt(row, column) instanceof DummyIconPath) {
+//						show.setText("- no selection - ");
+//					} else if (model.getValueAt(row, column) instanceof DummyFileInfo) {
+//						show.setText("- no selection - ");
+//					} else {
+//						show.setText((String) model.getValueAt(row, column));
+//					}
+//					displCellDetailsLabel.setText(show.getText());
+//					displCellDetailsLabel.setForeground(null);
+//					displCellDetailsLabel.setFont(new Font("Arial",Font.ITALIC, 13));
+//
+//				}
 
 			}
 
