@@ -260,7 +260,8 @@ public class FilterTable extends JPanel implements Serializable {
 
 			public void mouseClicked(MouseEvent e) {
 				
-				int row = jTable.getSelectedRow();
+				//get correct row even if  table is filtered
+				int row =  jTable.convertRowIndexToModel(jTable.getSelectedRow());
 				int column = jTable.getSelectedColumn();
 				
 				if (e.getClickCount() == 2) {
