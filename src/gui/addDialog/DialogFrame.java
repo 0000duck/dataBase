@@ -7,6 +7,7 @@ import gui.addDialog.tree.TreeDataBase;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,20 +17,18 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import main.Main;
 import structure.GroupComplete;
 import structure.GroupInfo;
 import structure.ShowMessageLabel;
+import sun.font.TextLabel;
 import utilities.ProjectParam;
 
 public class DialogFrame {
@@ -40,7 +39,7 @@ public class DialogFrame {
 	
 	//TODO: make this variables non static, fix access from outside
 	public static JTextField textHeader;
-	public static JLabel textId;
+	//public static JLabel textId;
 	public static JTextField textType;
 	public static JTextField textVersion;
 	public static JTextField textAutor;
@@ -85,6 +84,7 @@ public class DialogFrame {
 		jDialog.setTitle("Create DataBase File");
      	jDialog.setModal(true);
      	jDialog.setSize(new Dimension(570,712));
+     	jDialog.setMinimumSize(new Dimension(450,600));
      	jDialog.setLocationRelativeTo(ProjectParam.MAIN_FRAME);
 		addComponents();
 
@@ -94,7 +94,7 @@ public class DialogFrame {
         
 	}
 	
-	private static int getNextId() {
+	public static int getNextId() {
 
 		int tmpId = 0;
 		for (GroupComplete element : Main.KeplastDataBaseList.getElementGroup()) {
@@ -136,7 +136,7 @@ public class DialogFrame {
 		GroupInfo info = complete.getGroupInfo();
 
 		textHeader.setText(info.getHeader());
-		textId.setText(info.getId());
+		//textId.setText(info.getId());
 		textType.setText(info.getType());
 		//TODO: use InputVerifier to check if input is OK
 		textVersion.setText(info.getVersion());
@@ -151,7 +151,7 @@ public class DialogFrame {
 	}
 	
 	private void newFile () {
-		 textId.setText(addDigits(getNextIdFile()));
+		 //textId.setText(addDigits(getNextIdFile()));
 		 saveDirectory.setText(ProjectParam.ROOT_PATH );
 		 saveDirectory.setToolTipText(saveDirectory.getText());
 		 fileList.addListEntries(saveDirectory.getText());
@@ -168,139 +168,139 @@ public class DialogFrame {
 		//Text Label
 		Font labelFont = new Font("Arial", Font.PLAIN, 13);
 		
+	
+		int textWidth, textWidthShort;
+		textWidth = 70;
+		textWidthShort = 20;
+		
+		//Input Header
 		JLabel labelHeader = new JLabel ("Header");
 		labelHeader.setFont(labelFont);
-		JLabel labelId = new JLabel ("Id");
-		labelId.setFont(labelFont);
+		JPanel containerHeader = new JPanel(new BorderLayout());
+		labelHeader.setPreferredSize(new Dimension(textWidth,0));
+		containerHeader.add(labelHeader,BorderLayout.WEST);
+		textHeader = new JTextField ();
+		containerHeader.add(textHeader,BorderLayout.CENTER);
+		
+//		//Input Id
+//		JLabel labelId = new JLabel ("Id");
+//		labelId.setFont(labelFont);
+//		 textId = new JLabel ();
+//		 textId.setFont(labelFont);
+//		 //textId.setEditable(false);
+		
+		
+		//Input Type
 		JLabel labelType = new JLabel ("Type");
 		labelType.setFont(labelFont);
+		JPanel containerType = new JPanel(new BorderLayout());
+		labelType.setPreferredSize(new Dimension(textWidth,0));
+		containerType.add(labelType,BorderLayout.WEST);
+		textType = new JTextField();
+		containerType.add(textType,BorderLayout.CENTER);
+		
+		//Input Version
 		JLabel labelVersion = new JLabel ("Version");
 		labelVersion.setFont(labelFont);
+		JPanel containerVersion = new JPanel(new BorderLayout());
+		labelVersion.setPreferredSize(new Dimension(textWidth,0));
+		containerVersion.add(labelVersion,BorderLayout.WEST);
+		textVersion = new JTextField();
+		containerVersion.add(textVersion,BorderLayout.CENTER);
+		
+		//Input Autor
 		JLabel labelAutor = new JLabel ("Autor");
 		labelAutor.setFont(labelFont);
+		JPanel containerAutor = new JPanel(new BorderLayout());
+		labelAutor.setPreferredSize(new Dimension(textWidth,0));
+		containerAutor.add(labelAutor,BorderLayout.WEST);
+		textAutor = new JTextField();
+		containerAutor.add(textAutor,BorderLayout.CENTER);
+		
+		//Input Keywords
 		JLabel labelKeywords = new JLabel ("Keywords");
 		labelKeywords.setFont(labelFont);
+		JPanel containerKeywords = new JPanel(new BorderLayout());
+		labelKeywords.setPreferredSize(new Dimension(textWidth,0));
+		containerKeywords.add(labelKeywords,BorderLayout.WEST);
+		textKeywords = new JTextField();
+		containerKeywords.add(textKeywords,BorderLayout.CENTER);
+		
+		//Input Description
 		JLabel labelDescription = new JLabel ("Description");
 		labelDescription.setFont(labelFont);
+		JPanel containerDescription = new JPanel(new BorderLayout());
+		containerDescription.add(labelDescription,BorderLayout.WEST);
+		labelDescription.setPreferredSize(new Dimension(textWidth,0));
+		textDescription = new JTextArea (6,0);
+		JScrollPane scrollpaneDescription = new JScrollPane(textDescription);
+		textDescription.setLineWrap(true);
+		textDescription.setWrapStyleWord(true);
+		containerDescription.add(scrollpaneDescription,BorderLayout.CENTER);
 		
 		saveDirectory = new JLabel();
 		saveDirectory.setFont(labelFont);
 		
-		int textWidth, textWidthShort;
-		textWidth = 40;
-		textWidthShort = 20;
+//		SpringLayout springLayout = new SpringLayout();
 		
-		//Input Field
-		 textHeader = new JTextField (textWidth);
+		Font headerFont = new Font("Arial", Font.BOLD, 14);
+		
+		JPanel infoFileContentPanel = new JPanel (new BorderLayout());
+		infoFileContentPanel.setBorder(BorderFactory.createTitledBorder(null,"Info File Content",0,0,headerFont));
+		
+		JPanel infoFileContentPanelCenter = new JPanel(new GridLayout(5,1));
 
-		 textId = new JLabel ();
-		 textId.setFont(labelFont);
-		 //textId.setEditable(false);
-
-		 textType = new JTextField(textWidth);
-		 textVersion = new JTextField(textWidth);
-		 textAutor = new JTextField (textWidth);
-		 textKeywords = new JTextField (textWidth);
+		infoFileContentPanelCenter.add(containerHeader);
+		infoFileContentPanelCenter.add(containerType);
+		infoFileContentPanelCenter.add(containerVersion);
+		infoFileContentPanelCenter.add(containerAutor);
+		infoFileContentPanelCenter.add(containerKeywords);
 		
-		 textDescription = new JTextArea (6,textWidth);
-		 JScrollPane scrollpaneDescription = new JScrollPane(textDescription);
-		 textDescription.setLineWrap(true);
-		 textDescription.setWrapStyleWord(true);
+		infoFileContentPanel.add(containerDescription,BorderLayout.SOUTH);
+		infoFileContentPanel.add(infoFileContentPanelCenter,BorderLayout.CENTER);
 		
-		
-		SpringLayout springLayout = new SpringLayout();
-		
-		Font headerFont = new Font("Arial", Font.BOLD, 13);
-		
-		JPanel inputPanel = new JPanel (springLayout);
-		inputPanel.setBorder(BorderFactory.createTitledBorder(null,"Info File Content",0,0,headerFont));
-		JPanel outerPanel = new JPanel (new BorderLayout());
-		outerPanel.add(inputPanel,BorderLayout.CENTER);
-		outerPanel.setBorder(new EmptyBorder(15,15,10,15));
+		JPanel mainCenterOuterGapPanel = new JPanel (new BorderLayout());
+		mainCenterOuterGapPanel.add(infoFileContentPanel,BorderLayout.CENTER);
+		mainCenterOuterGapPanel.setBorder(new EmptyBorder(5,5,5,5));
+	
 		//inputPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		inputPanel.setPreferredSize(new Dimension (100,280));
+		infoFileContentPanel.setPreferredSize(new Dimension (0,240));
 		JPanel mainPanel = new JPanel (new BorderLayout());
-		JPanel mainCenter = new JPanel (new BorderLayout());
-		JPanel listMainPanel = new JPanel (new BorderLayout());
+		BorderLayout listMainPanelEmptyBorder = new BorderLayout(0,0);
+		JPanel mainCenterPanel = new JPanel (listMainPanelEmptyBorder);
 		
-		treeDataBase = new TreeDataBase();
+		JPanel listMainPanel = new JPanel (new BorderLayout());
 		listMainPanel.setBorder(BorderFactory.createTitledBorder(null, "Add/Remove Files from Group",0,0,headerFont));
+		
+		//listMainPanel.setBorder(new EmptyBorder(5,0,0,0));
 		//JPanel outerPanel2 = new JPanel (new BorderLayout(20,20));
-		JPanel outerPanel2 = new JPanel (new GridLayout(2,1));
-		outerPanel2.setBorder(new EmptyBorder(0,15,10,15));
+		GridLayout mainCenterSouthGrid = new GridLayout(2,1);
+		mainCenterSouthGrid.setVgap(5);
+		JPanel mainCenterSouthPanel = new JPanel (mainCenterSouthGrid);
+		//mainCenterSouthPanel.setBorder(new EmptyBorder(0,5,0,5));
+		
 		JPanel treeMainPanel = new JPanel (new BorderLayout());
 		treeMainPanel.setBorder(BorderFactory.createTitledBorder(null,"Save Directory",0,0,headerFont));
-		BorderLayout brdInner3 = new BorderLayout();
 		JPanel treeMainInnerPanel = new JPanel(new BorderLayout());
-		treeMainInnerPanel.setBorder(new EmptyBorder(5,5,5,5));
+		//treeMainInnerPanel.setBorder(new EmptyBorder(5,5,5,5));
 		JPanel treeMainInnerSouthPanel = new JPanel(new BorderLayout());
 		treeMainInnerSouthPanel.add(saveDirectory,BorderLayout.CENTER);
 		treeMainInnerPanel.add(treeMainInnerSouthPanel,BorderLayout.SOUTH);
+		treeDataBase = new TreeDataBase();
 		treeMainInnerPanel.add(treeDataBase,BorderLayout.CENTER);
 		//treeMainInnerPanel.setBorder(new EmptyBorder(0,2,2,2));
 		treeMainPanel.add(treeMainInnerPanel,BorderLayout.CENTER);
-		outerPanel2.add(treeMainPanel,BorderLayout.NORTH);
-		outerPanel2.add(listMainPanel,BorderLayout.CENTER);
-		mainCenter.add(outerPanel,BorderLayout.NORTH);
-		mainCenter.add(outerPanel2,BorderLayout.CENTER);
-		mainPanel.add(mainCenter,BorderLayout.CENTER);
+		mainCenterSouthPanel.add(treeMainPanel,BorderLayout.NORTH);
+		mainCenterSouthPanel.add(listMainPanel,BorderLayout.CENTER);
+		mainCenterPanel.add(mainCenterOuterGapPanel,BorderLayout.NORTH);
 		
-		//------------------------------------------- FRAME CENTER
-
-		inputPanel.add(labelHeader);
-		inputPanel.add(textHeader);
-		inputPanel.add(labelId);
-		inputPanel.add(textId);
-		inputPanel.add(labelType);
-		inputPanel.add(textType);
-		inputPanel.add(labelVersion);
-		inputPanel.add(textVersion);
-		inputPanel.add(labelAutor);
-		inputPanel.add(textAutor);
-		inputPanel.add(labelKeywords);
-		inputPanel.add(textKeywords);
-		inputPanel.add(labelDescription);
-		inputPanel.add(scrollpaneDescription);
-
-		int width1, width2;
-		width1 = 2;
-		width2 = 70;
-
-		springLayout.putConstraint(SpringLayout.WEST, labelHeader, width1, SpringLayout.WEST, inputPanel);		
-		springLayout.putConstraint(SpringLayout.NORTH, labelHeader, 5, SpringLayout.NORTH, inputPanel);	
-		springLayout.putConstraint(SpringLayout.WEST, textHeader, width2, SpringLayout.WEST, inputPanel);		
-		springLayout.putConstraint(SpringLayout.NORTH, textHeader, 5, SpringLayout.NORTH, inputPanel);	
-				
-		springLayout.putConstraint(SpringLayout.WEST, labelId, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelId, 30, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, textId, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, textId, 30, SpringLayout.NORTH, inputPanel);
+		BorderLayout mainCenterSouthOuterGapPanelEmptyBorder = new BorderLayout(5,5);
+		JPanel mainCenterSouthOuterGapPanel = new JPanel (mainCenterSouthOuterGapPanelEmptyBorder);
+		mainCenterSouthOuterGapPanel.add(mainCenterSouthPanel,BorderLayout.CENTER);
+		mainCenterSouthOuterGapPanel.setBorder(new EmptyBorder(0,5,0,5));
 		
-		springLayout.putConstraint(SpringLayout.WEST, labelType, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelType, 55, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, textType, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, textType, 55, SpringLayout.NORTH, inputPanel);
-
-		springLayout.putConstraint(SpringLayout.WEST, labelVersion, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelVersion, 80, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, textVersion, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, textVersion, 80, SpringLayout.NORTH, inputPanel);
-
-		springLayout.putConstraint(SpringLayout.WEST, labelAutor, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelAutor, 105, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, textAutor, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, textAutor, 105, SpringLayout.NORTH, inputPanel);
-
-		springLayout.putConstraint(SpringLayout.WEST, labelKeywords, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelKeywords, 130, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, textKeywords, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, textKeywords, 130, SpringLayout.NORTH, inputPanel);
-
-		springLayout.putConstraint(SpringLayout.WEST, labelDescription, width1, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, labelDescription, 155, SpringLayout.NORTH, inputPanel);
-		springLayout.putConstraint(SpringLayout.WEST, scrollpaneDescription, width2, SpringLayout.WEST, inputPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollpaneDescription, 155, SpringLayout.NORTH, inputPanel);
-		
+		mainCenterPanel.add(mainCenterSouthOuterGapPanel,BorderLayout.CENTER);
+		mainPanel.add(mainCenterPanel,BorderLayout.CENTER);
 		
 		//Add Remove Files from list
 		JPanel listArrangePanel = new JPanel(new GridLayout(1,2));
@@ -343,7 +343,8 @@ public class DialogFrame {
 		// FRAME SOUTH
 		JButton createButton = new JButton("Save");
 		createButton.setFont(labelFont);
-		createButton.setPreferredSize(new Dimension(15, 30));
+		createButton.setPreferredSize(new Dimension(100, 25));
+//		createButton.setMaximumSize(new Dimension(15, 30));
 		createButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent action) {
@@ -371,11 +372,14 @@ public class DialogFrame {
 			}
 		});
 
+		//Flow layout so button only has requested size and does not span the total horizontal width
+		JPanel panelSave = new JPanel(new FlowLayout());
+		
 		// JPanel panelSouthButton = new JPanel (newGridLayout(1,1))
 		JPanel mainPanelSouth = new JPanel(new BorderLayout());
 
-		mainPanelSouth.setBorder(new EmptyBorder(0, 240, 10, 240));
-		mainPanelSouth.add(createButton, BorderLayout.CENTER);
+		panelSave.add(createButton);
+		mainPanelSouth.add(panelSave, BorderLayout.CENTER);
 		mainPanel.add(mainPanelSouth, BorderLayout.SOUTH);
 
 		jDialog.add(mainPanel);

@@ -25,12 +25,12 @@ public class CreateInfoDataBaseFile {
 	private String name = null;
 
 	public CreateInfoDataBaseFile() {
-		name = ProjectParam.ROOT_PATH + "\\" + DialogFrame.textId.getText() + infoFileType;
+		name = ProjectParam.ROOT_PATH + "\\" + DialogFrame.getNextId() + infoFileType;
 		makeFile();
 	}
 
 	public CreateInfoDataBaseFile(String path) {
-		name = path + "\\" + "KP_" + DialogFrame.textId.getText() + infoFileType;
+		name = path + "\\" + "KP_" + DialogFrame.getNextId() + infoFileType;
 		makeFile();
 	}
 
@@ -40,7 +40,7 @@ public class CreateInfoDataBaseFile {
 			fileWriter = new FileWriter(name);
 
 			writeLine(conHeader + DialogFrame.textHeader.getText() + conHeader);
-			writeLine(conId + DialogFrame.textId.getText() + conId);
+			writeLine(conId + DialogFrame.getNextId() + conId);
 			writeLine(conType + DialogFrame.textType.getText() + conType);
 			writeLine(conVersion + DialogFrame.textVersion.getText() + conVersion);
 			writeLine(conAutor + DialogFrame.textAutor.getText() + conAutor);
