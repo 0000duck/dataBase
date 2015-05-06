@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -32,7 +33,7 @@ import utilities.ProjectParam;
 public class FileListAll extends JPanel {
 	
 	static JList fileList;
-	public static DefaultListModel listModelAll;
+	public static DefaultListModel<String> listModelAll;
 	String clickedPath;
 	int selectedidx;
 	
@@ -79,7 +80,23 @@ public class FileListAll extends JPanel {
 	public void addListEntries(String directory) {
 		removeAllEntries();
 		File folder = new File(directory);
-		File[] listOfFiles = folder.listFiles();
+		
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				String lower = name.toLowerCase();
+				if (lower.startsWith("~")) //Office temporary files
+					return false;
+				else if (lower.equals("thumbs.db"))
+					return false;
+				else if (lower.endsWith(".database"))
+					return false;
+
+				return true;
+			}
+		};
+		
+		File[] listOfFiles = folder.listFiles(filter);
 
 		    for (int i = 0; i < listOfFiles.length; i++) {
 		      if (listOfFiles[i].isFile()) {
