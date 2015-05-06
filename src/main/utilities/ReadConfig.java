@@ -72,7 +72,7 @@ public class ReadConfig {
 		if (line.contains(SELECT_OPTIONS)) {
 			String selectOptions = line.substring(SELECT_OPTIONS.length());
 			LogFile.write("Select options String:" + selectOptions);
-			ProjectParam.SELECT_OPTIONS = selectOptions.split(",");
+			ProjectParam.SELECT_OPTIONS = selectOptions.split("|");
 		}
 
 	}
