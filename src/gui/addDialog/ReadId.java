@@ -10,7 +10,7 @@ import utilities.ProjectParam;
 
 public class ReadId {
 
-	final static String FILENAME = ProjectParam.ROOTH_PATH_APPL + ProjectParam.DATA_FOLDER + "Id.txt";
+	final static String FILENAME = ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER + "Id.txt";
 
 	public static int readIdAndIncrement(File idFile) {
 		int id = -1; // Id read from the file

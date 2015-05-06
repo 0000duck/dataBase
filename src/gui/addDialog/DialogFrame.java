@@ -118,28 +118,9 @@ public class DialogFrame {
 	
 	public static int getNextIdFile(){
 		int id = ReadId.readIdAndIncrement(new File(ReadId.FILENAME));
-//		ReadId readId = new ReadId();
-//		int Id = readId.ReadId();
-//		if (!readId.fileExists) {
-//			//jDialog.dispose();
-//			JOptionPane.showMessageDialog(jDialog, "Error reading Id from Text file");
-//		} 
 		return id;
 	}
 
-//	//TODO: use generic code to produce leading zeros
-//	private static String addDigits(int Id) {
-//		String s = Integer.toString(Id);
-//		int length = s.length();
-//		String nullCont = "";
-//		int count = ProjectParam.ID_DIGITS - length;
-//		for (int i = 0; i < count; i++) {
-//			nullCont = nullCont.concat("0");
-//		}
-//
-//		String idString = nullCont + s;
-//		return idString;
-//	}
 
 	private void editFile() {
 		GroupComplete complete = Main.KeplastDataBaseList.getElementGroup().get(row);

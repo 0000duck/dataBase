@@ -22,7 +22,6 @@ public final class ProjectParam {
 	public static String ROOTH_PATH_APPL = null;
 	//public final static String ROOT_PATH = System.getProperty("user.dir");
 	public  static String ROOT_PATH = null;
-	public final static int ID_DIGITS	= 5;
 	public final static String DATA_FOLDER = "\\dataBase\\";
 		
 	//FILTER TABLE CONTENT STRUCTURE ---------------------------------------------------------------------
