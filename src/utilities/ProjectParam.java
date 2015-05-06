@@ -5,6 +5,8 @@ import gui.table.FilterTable;
 
 import java.awt.Color;
 
+
+
 public final class ProjectParam {
 
 	//COLORS --------------------------------------------------------------------------------------------
@@ -22,10 +24,14 @@ public final class ProjectParam {
 	public  static String ROOT_PATH = null;
 	public final static int ID_DIGITS	= 5;
 	public final static String DATA_FOLDER = "\\dataBase\\";
-	
+		
 	//FILTER TABLE CONTENT STRUCTURE ---------------------------------------------------------------------
 	
 	public static FilterTable FILTER_TABLE = null;
 	public static MainFrame MAIN_FRAME = null;
+	
+	//SELECT OPTIONS FOR CREATING NEW ELEMENT
+	public static String[] SELECT_OPTIONS = null;
+	
 	
 }

@@ -5,6 +5,8 @@ import gui.addDialog.fileList.FileListSelected;
 import gui.addDialog.tree.TreeDataBase;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,13 +18,20 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ComboBoxUI;
+
+import com.sun.java.swing.plaf.motif.MotifBorders.BevelBorder;
 
 import main.Main;
 import structure.GroupComplete;
@@ -40,7 +49,8 @@ public class DialogFrame {
 	//TODO: make this variables non static, fix access from outside
 	public static JTextField textHeader;
 	//public static JLabel textId;
-	public static JTextField textType;
+	//public static JTextField textType;
+	public static JComboBox<String[]> comboBoxType;
 	public static JTextField textVersion;
 	public static JTextField textAutor;
 	public static JTextField textKeywords;
@@ -137,7 +147,8 @@ public class DialogFrame {
 
 		textHeader.setText(info.getHeader());
 		//textId.setText(info.getId());
-		textType.setText(info.getType());
+		//textType.setText(info.getType());
+		comboBoxType.setSelectedItem(info.getType());
 		//TODO: use InputVerifier to check if input is OK
 		textVersion.setText(info.getVersion());
 		textAutor.setText(info.getAutor());
@@ -162,6 +173,7 @@ public class DialogFrame {
 		 textAutor.setText(System.getProperty("user.name"));
 		 
 	}	
+
 
 	private void addComponents() {
 		
@@ -196,8 +208,15 @@ public class DialogFrame {
 		JPanel containerType = new JPanel(new BorderLayout());
 		labelType.setPreferredSize(new Dimension(textWidth,0));
 		containerType.add(labelType,BorderLayout.WEST);
-		textType = new JTextField();
-		containerType.add(textType,BorderLayout.CENTER);
+		comboBoxType = new JComboBox(ProjectParam.SELECT_OPTIONS);
+		comboBoxType.setRenderer(new ListCellRendererCust());
+		comboBoxType.setFocusable(false);
+		comboBoxType.setForeground(Color.BLACK);
+		comboBoxType.setBackground(Color.WHITE);
+		comboBoxType.setBorder(new EmptyBorder(0,0,0,1));
+		comboBoxType.setFont(new Font("Arial",Font.PLAIN,13));
+		//textType = new JTextField();
+		containerType.add(comboBoxType,BorderLayout.CENTER);
 		
 		//Input Version
 		JLabel labelVersion = new JLabel ("Version");
@@ -386,4 +405,37 @@ public class DialogFrame {
 //		frame.setResizable(false);
 
 	}
+	
+	
+	class ListCellRendererCust extends JLabel implements ListCellRenderer<Object> {
+		public ListCellRendererCust() {
+			setOpaque(true);
+		}
+
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+
+			setText(value.toString());
+			setFont(new Font("Arial",Font.PLAIN,13));
+			
+			Color background;
+			Color foreground;
+			
+			if (isSelected){
+				background = Color.WHITE;
+				foreground = Color.BLACK;	
+			} else {
+				background = Color.WHITE;
+				foreground = Color.GRAY;	
+			}
+
+			setBackground(background);
+			setForeground(foreground);
+
+			return this;
+		}
+	}
+
+
+	
 }

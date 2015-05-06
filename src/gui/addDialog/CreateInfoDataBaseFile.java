@@ -41,7 +41,7 @@ public class CreateInfoDataBaseFile {
 
 			writeLine(conHeader + DialogFrame.textHeader.getText() + conHeader);
 			writeLine(conId + DialogFrame.getNextId() + conId);
-			writeLine(conType + DialogFrame.textType.getText() + conType);
+			writeLine(conType + ((String) DialogFrame.comboBoxType.getSelectedItem()).toString() + conType);
 			writeLine(conVersion + DialogFrame.textVersion.getText() + conVersion);
 			writeLine(conAutor + DialogFrame.textAutor.getText() + conAutor);
 			writeLine(conKeywords + DialogFrame.textKeywords.getText() + conKeywords);
