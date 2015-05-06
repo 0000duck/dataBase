@@ -94,6 +94,8 @@ public class FilterTable extends JPanel implements Serializable {
 	
 	public static String text = "";
 	
+	public boolean updateActive = false;
+	
 	TapTapTap tap;
 	
 //	JLabel displayState;
@@ -557,17 +559,19 @@ public class FilterTable extends JPanel implements Serializable {
 		}
 	}
 	
+	
+	
 	public void update() {
-		//preprae UI for update
-		LogFile.write("Start update data");
-		//setStateText("Table update in progress", Color.WHITE, CustomConstant.NO_MATCH_COL, new Dimension(25,25));
-		busyLayer.setBusy();
-		refreshButton.setEnabled(false);
-		//addButton.setEnabled(false);
-		//rootButton.setEnabled(false);
-		//Main.searchFiles();
-		JTableProperties();
-		new UpdateDataBase().execute();
+		if (!updateActive) {
+			updateActive = true;
+			LogFile.write("Start update data");
+			busyLayer.setBusy();
+			refreshButton.setEnabled(false);
+			JTableProperties();
+			new UpdateDataBase().execute();
+		}
+		
+
 		
 //		model.setDataVector(Main.arrayTwoDim, columnNames);
 //		repaintTable();
@@ -614,11 +618,12 @@ public class FilterTable extends JPanel implements Serializable {
 			repaintTable();
 			JTableProperties();
 			refreshButton.setEnabled(true);
-			addButton.setEnabled(true);
-			rootButton.setEnabled(true);
+			//addButton.setEnabled(true);
+			//rootButton.setEnabled(true);
 			//setStateText(null, null,CustomConstant.ALTERNATING_ROW_COL,null);
 			busyLayer.resetBusy();
 			LogFile.write("End update data");
+			updateActive = false;
 	      }
 	      catch ( /* InterruptedException, ExecutionException */ Exception e ) { }
 	    }

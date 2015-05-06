@@ -58,8 +58,8 @@ public class Main {
 		String absPathRoot = fileRoot.getAbsolutePath();
 		//String fileNameRoot = fileRoot.getPath();
 		String rootPathAppl = absPathRoot.substring(0,absPathRoot.lastIndexOf(File.separator));
-		ProjectParam.ROOTH_PATH_APPL = rootPathAppl;
-		LogFile.write("Appl Root path: " + ProjectParam.ROOTH_PATH_APPL);
+		ProjectParam.ROOT_PATH_APPL = rootPathAppl;
+		LogFile.write("Appl Root path: " + ProjectParam.ROOT_PATH_APPL);
 		
 	}
 
@@ -71,7 +71,7 @@ public class Main {
     	ArrayList<File> listFileBase = list.walk(ProjectParam.ROOT_PATH);
     	
     	// ---------------------- Compare/Search KePlast Base Files----------------------------//
-		KeplastDataBaseList = new GroupCollection();
+    	GroupCollection KeplastDataBaseListTmp = new GroupCollection();
 		//parse files -> collect in structured list
 		for (File file : listFileBase) {
 		
@@ -92,12 +92,15 @@ public class Main {
 			groupComplete.setGroup(group);
 
 			//Add Feature/Document Group to List
-			KeplastDataBaseList.addListElement(groupComplete);
+			KeplastDataBaseListTmp.addListElement(groupComplete);
 		}
 		
+		//set new updated list
+		
+		KeplastDataBaseList = KeplastDataBaseListTmp;
 		// ---------------------- Compare/Search KePlast Base Files----------------------------//
 
-		arrayTwoDim = ConvertStructureToArray.convert(KeplastDataBaseList);	
+		arrayTwoDim = ConvertStructureToArray.convert(KeplastDataBaseListTmp);	
 	}
 
 	private static ArrayList<File> compare(File fileInfoBase, GroupInfo groupInfo) {
