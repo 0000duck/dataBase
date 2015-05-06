@@ -1,7 +1,9 @@
 package utilities;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
@@ -59,4 +61,20 @@ public class LogFile {
 			return "bad stack2string";
 		}
 	}
+	
+	/*
+	 * open log file
+	 */
+	public static void openfile() {
+		File file = new File(logFile);
+		if (file.exists()) {
+			try {
+				Desktop.getDesktop().open(file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	}
+   
 }

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,6 +43,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -105,7 +107,8 @@ public class FilterTable extends JPanel implements Serializable {
 	JButton refreshButton;
 	JButton rootButton;
 	JButton addButton;
-
+	JButton logFileButton;
+	
 	private Highlighter hilit = null;
 	private Highlighter.HighlightPainter painter = null;
 
@@ -123,6 +126,7 @@ public class FilterTable extends JPanel implements Serializable {
 	private JComboBox cbFilterVariant = null;
 	
 	private JTextArea displCellDetailsLabel;
+	private JTextArea jTextLabelDetail;
 	
 	public static DialogFrame dialogFrame;
 
@@ -202,11 +206,14 @@ public class FilterTable extends JPanel implements Serializable {
 		JPanel panelBottomSouth = new JPanel(new BorderLayout());
 		JPanel panelBottomNorth = new JPanel(new BorderLayout(10,10));
 		JPanel panelDummyEast = new JPanel (new BorderLayout());
+
+		panelBottomframe.setBorder(BorderFactory.createRaisedBevelBorder());
+		
 		
 		panelBottomNorth.setBorder(new EmptyBorder(5,5,15,5));
 		panelBottomSouth.setBorder(new EmptyBorder(5,5,5,5));
 		
-		
+		jTextLabelDetail = new JTextArea();
 		
 
 		displCellDetailsLabel = new JTextArea(6,0);
@@ -248,7 +255,7 @@ public class FilterTable extends JPanel implements Serializable {
 		//scrollbarCellDetails.setPreferredSize(new Dimension(0,100));
 
 
-		panelBottomNorth.add(new JSeparator(),BorderLayout.NORTH);
+		//panelBottomNorth.add(new JSeparator(),BorderLayout.NORTH);
 		panelBottomNorth.add(scrollbarCellDetails,BorderLayout.CENTER);
 		scrollbarCellDetails.setBorder(new EmptyBorder(0,0,0,0));
 		//panelBottomNorth.setMaximumSize(new Dimension(25,25));
@@ -376,8 +383,9 @@ public class FilterTable extends JPanel implements Serializable {
 		ImageIcon iconRefresh = LoadImageIcon.createImageIcon("/img/Refresh_50x50.png","");
 		ImageIcon iconAdd = LoadImageIcon.createImageIcon("/img/Edit_50x50.png","");
 		ImageIcon iconRoot = LoadImageIcon.createImageIcon("/img/Explorer_Window_40x40.png","");
+		ImageIcon iconlogFile = LoadImageIcon.createImageIcon("/img/File_40x40.png","");
 		
-		GridLayout gridLayout = new GridLayout(3,1,5,5);
+		GridLayout gridLayout = new GridLayout(4,1,5,5);
 		refreshButton = new JButton (iconRefresh);
 		refreshButton.setPreferredSize(new Dimension(45,45));
 		addButton = new JButton (iconAdd);
@@ -385,23 +393,27 @@ public class FilterTable extends JPanel implements Serializable {
 		rootButton = new JButton (iconRoot);
 		rootButton.setPreferredSize(new Dimension(45,45));
 		refreshButton.setEnabled(false);
+		logFileButton = new JButton(iconlogFile);
+		logFileButton.setPreferredSize(new Dimension(45,45));
 		//addButton.setEnabled(false);
 		//rootButton.setEnabled(false);
 		
 		
-		JPanel JPanelFrameEASTEAST = new JPanel (new BorderLayout()); 
+		JPanel JPanelFrameEASTEAST = new JPanel (new BorderLayout());
+		JPanelFrameEASTEAST.setBorder(new EmptyBorder(5,0,5,5));
 
 		JPanel panelFrameWestNorth = new JPanel(gridLayout);
 		JPanelFrameEASTEAST.add(panelFrameWestNorth,BorderLayout.SOUTH);
 		panelFrameWestNorth.add(refreshButton);
 		panelFrameWestNorth.add(addButton);
 		panelFrameWestNorth.add(rootButton);
+		panelFrameWestNorth.add(logFileButton);
 		
 		JPanel panelFrameWest = new JPanel (new BorderLayout(10,20));
 		//panelFrameWest.setPreferredSize(new Dimension (80,2000));
-		panelFrameWest.setBorder(new EmptyBorder(5,5,5,15));
+		//panelFrameWest.setBorder(new EmptyBorder(5,5,5,15));
 		
-		panelFrameWest.add(new JSeparator(JSeparator.VERTICAL), BorderLayout.WEST);
+		//panelFrameWest.add(new JSeparator(JSeparator.VERTICAL), BorderLayout.WEST);
 		panelFrameWest.add(JPanelFrameEASTEAST,BorderLayout.EAST);
 		//------------------------------- FRAME EAST
 		
@@ -420,6 +432,8 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		this.add(mainNortPanel, BorderLayout.NORTH);
 		this.add(panelFrameWest, BorderLayout.EAST);
+		
+		panelFrameWest.setBorder(BorderFactory.createRaisedBevelBorder());
 
 		// add 2. Layer panel in frame south
 		this.add(panelBottomframe, BorderLayout.SOUTH);
@@ -472,6 +486,18 @@ public class FilterTable extends JPanel implements Serializable {
 				}
 			}	
 		});
+
+		
+		/*
+		 * open local saved log file
+		 */
+		logFileButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LogFile.openfile();
+			}
+		});
+		
 		jtfFilterField.getDocument().addDocumentListener(
 				new DocumentListener() {
 
