@@ -46,7 +46,7 @@ public class AdvancedCellRenderer extends TableCellRendererJTextArea {
 			if (value instanceof String) {
 				UtilitiesHiglight.findText((String)value,FilterTable.text); //FIXME value must be checked for String 
 				if ((UtilitiesHiglight.start != -1) && (column != (FilterTable.columnNrDialog)) && (column != (FilterTable.columnNrExp))) {
-					super.setBackground(ProjectParam.ALTERNATING_ROW_COL);
+					super.setBackground(ProjectParam.HIGHLIGHT_COL);
 				} else {
 					super.setBackground(null);
 				}	
