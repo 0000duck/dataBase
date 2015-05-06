@@ -4,6 +4,7 @@ import gui.addDialog.fileList.FileListSelected;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import utilities.ProjectParam;
 
@@ -21,16 +22,21 @@ public class CreateInfoDataBaseFile {
 	public final static String conFile = "<File>";
 
 	public final static String infoFileType = ".dataBase";
+	
+	private final static String formatter = "%05d";
+	private int Id;
 
 	private String name = null;
 
-	public CreateInfoDataBaseFile() {
-		name = ProjectParam.ROOT_PATH + "\\" + DialogFrame.getNextId() + infoFileType;
-		makeFile();
-	}
+//	public CreateInfoDataBaseFile() {
+//		int Id = DialogFrame.getNextId();
+//		name = ProjectParam.ROOT_PATH + "\\" + String.format("%08d",Id) + infoFileType;
+//		makeFile();
+//	}
 
 	public CreateInfoDataBaseFile(String path) {
-		name = path + "\\" + "KP_" + DialogFrame.getNextId() + infoFileType;
+		Id = DialogFrame.getNextIdFile();
+		name = path + "\\" + "KP_" + String.format(formatter,Id) + infoFileType;
 		makeFile();
 	}
 
@@ -40,7 +46,7 @@ public class CreateInfoDataBaseFile {
 			fileWriter = new FileWriter(name);
 
 			writeLine(conHeader + DialogFrame.textHeader.getText() + conHeader);
-			writeLine(conId + DialogFrame.getNextId() + conId);
+			writeLine(conId + String.format(formatter,Id) + conId);
 			writeLine(conType + ((String) DialogFrame.comboBoxType.getSelectedItem()).toString() + conType);
 			writeLine(conVersion + DialogFrame.textVersion.getText() + conVersion);
 			writeLine(conAutor + DialogFrame.textAutor.getText() + conAutor);
