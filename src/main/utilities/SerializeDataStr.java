@@ -11,6 +11,7 @@ import java.util.Date;
 
 import structure.GroupCollection;
 import structure.GroupComplete;
+import utilities.LogFile;
 import utilities.ProjectParam;
 import main.Main;
 
@@ -32,12 +33,12 @@ public class SerializeDataStr {
 			o.writeObject(Main.KeplastDataBaseList);
 			//o.writeObject(new Date());
 		} catch (IOException e) {
-			System.err.println(e);
+			LogFile.write(e);
 		} finally {
 			try {
 				fos.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				LogFile.write(e);
 			}
 		}
 	}
