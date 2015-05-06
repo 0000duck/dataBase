@@ -149,6 +149,7 @@ public class FilterTable extends JPanel implements Serializable {
 		SerializeDataStr serialize = new SerializeDataStr();
 		GroupCollection serializedData = (GroupCollection) serialize.getSerialized();
 		if (serialize.fileExists) {
+			Main.KeplastDataBaseList = serializedData;
 			arrayTwoDim = ConvertStructureToArray.convert(serializedData);
 		} else {
 			arrayTwoDim = new Object[][] {};			
