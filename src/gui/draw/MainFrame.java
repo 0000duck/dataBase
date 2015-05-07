@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		
-		super("DataBase");
+		super(ProjectParam.DataBaseVersion);
 		ProjectParam.FILTER_TABLE = new FilterTable();
 		this.add(ProjectParam.FILTER_TABLE);
 		this.setPreferredSize(new Dimension(1300, 800));
