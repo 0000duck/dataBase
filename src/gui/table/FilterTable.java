@@ -392,12 +392,17 @@ public class FilterTable extends JPanel implements Serializable {
 		addButton.setPreferredSize(new Dimension(45,45));
 		rootButton = new JButton (iconRoot);
 		rootButton.setPreferredSize(new Dimension(45,45));
-		refreshButton.setEnabled(false);
+		
 		logFileButton = new JButton(iconlogFile);
 		logFileButton.setPreferredSize(new Dimension(45,45));
-		//addButton.setEnabled(false);
-		//rootButton.setEnabled(false);
+
 		
+		if (Main.errorApplication) {
+			refreshButton.setEnabled(false);
+			addButton.setEnabled(false);
+			rootButton.setEnabled(false);
+		}
+			
 		
 		JPanel JPanelFrameEASTEAST = new JPanel (new BorderLayout());
 		JPanelFrameEASTEAST.setBorder(new EmptyBorder(5,0,5,5));

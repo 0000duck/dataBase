@@ -22,6 +22,7 @@ public class Main {
 
 	public static Object[][] arrayTwoDim; //TODO: convert to a 2 dimensional array only in the HMI classes
 	public static GroupCollection KeplastDataBaseList; //TODO make this non static and pass to MainFrame
+	public static boolean errorApplication = false; //application error can be: path not found, configuration file not found,....
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -35,11 +36,7 @@ public class Main {
 	
 		//Read Configuration File
 		ReadConfig configFile = new ReadConfig();
-		if (!configFile.fileExists) {
-			LogFile.write("Program stopped. Path not found or Config File not exists");
-			System.exit(1);
-		};
-	
+		checkConfigFileResult(configFile);
 		
 		//Check if data folder exists
 		File dataPath = new File(ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER);
@@ -47,12 +44,31 @@ public class Main {
 			dataPath.mkdir();
 		}
 		
-		//CustomConstant.ROOT_PATH = new File(".").getCanonicalPath(); //
 	    ProjectParam.MAIN_FRAME = new MainFrame();  //Draw HMI
-	    ProjectParam.FILTER_TABLE.update(); //add Data in Table
+	    
+	    if (!errorApplication) {
+			    ProjectParam.FILTER_TABLE.update(); //add Data in Table	
+		}
 		
 	}
 	
+	/*
+	 * after configuration file is read content should be checked
+	 * for validity 
+	 */
+	
+	private static void checkConfigFileResult(ReadConfig configFile) {
+		if (!configFile.fileExists) {
+			LogFile.write("Program stopped. Path not found or Config File not exists");
+			errorApplication = true;
+			//System.exit(1);
+			
+		} else if (!(new File(ProjectParam.ROOT_PATH)).isDirectory()) {
+			LogFile.write("Program stopped. Configured Root is no found directory");
+			errorApplication = true;
+		}
+	}
+
 	private static void getApplicationRoot() {
 		File fileRoot = new File("Root.txt");
 		String absPathRoot = fileRoot.getAbsolutePath();
