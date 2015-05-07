@@ -12,18 +12,18 @@ import java.util.Date;
 
 public class LogFile {
 
-	private static String logFile;
+	private static File logFile;
 	private final static DateFormat df = new SimpleDateFormat("yyyy.MM.dd  hh:mm:ss ");
 
 	private LogFile() {
 	}
 
-	public static void setLogFilename(String filename) {
-		logFile = filename;
-		new File(filename).delete();
+	public static void setLogFile(File file) {
+		logFile = file;
+		logFile.delete();
 
 		try {
-			write("LOG file: " + filename);
+			write("LOG file: " + logFile.getAbsolutePath());
 		} catch (Exception e) {
 			System.out.println(stack2string(e));
 		}
@@ -37,7 +37,7 @@ public class LogFile {
 		write(logFile, stack2string(e));
 	}
 
-	public static void write(String file, String msg) {
+	public static void write(File file, String msg) {
 		try {
 			Date now = new Date();
 			String currentTime = LogFile.df.format(now);
@@ -66,10 +66,9 @@ public class LogFile {
 	 * open log file
 	 */
 	public static void openfile() {
-		File file = new File(logFile);
-		if (file.exists()) {
+		if (logFile.exists()) {
 			try {
-				Desktop.getDesktop().open(file);
+				Desktop.getDesktop().open(logFile);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
