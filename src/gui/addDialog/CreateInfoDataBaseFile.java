@@ -39,6 +39,12 @@ public class CreateInfoDataBaseFile {
 		name = path + "\\" + "KP_" + String.format(formatter,Id) + infoFileType;
 		makeFile();
 	}
+	
+	public CreateInfoDataBaseFile(String path, String Idtmp) {
+		Id = Integer.parseInt(Idtmp);
+		name = path + "\\" + "KP_" + String.format(formatter,Id) + infoFileType;
+		makeFile();
+	}
 
 	public void makeFile() {
 		try {

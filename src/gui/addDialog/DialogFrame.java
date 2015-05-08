@@ -57,6 +57,7 @@ public class DialogFrame {
 	public static JTextArea textDescription;
 	
 	private static TreeDataBase treeDataBase;
+	private GroupInfo info;
 	
 	public static JLabel saveDirectory; 
 	
@@ -124,7 +125,7 @@ public class DialogFrame {
 
 	private void editFile() {
 		GroupComplete complete = Main.KeplastDataBaseList.getElementGroup().get(row);
-		GroupInfo info = complete.getGroupInfo();
+		info = complete.getGroupInfo();
 
 		textHeader.setText(info.getHeader());
 		//textId.setText(info.getId());
@@ -350,19 +351,19 @@ public class DialogFrame {
 			public void actionPerformed(ActionEvent action) {
 				CheckUserInput checkInput = new CheckUserInput(); // Main.KeplastDataBaseList.getElementGroup().get(row).getGroupInfo1().getPath()
 				if (checkInput.versionCheck) {
-//					if (edit) {
 					if (!(saveDirectory.getText().isEmpty())) {
-						new CreateInfoDataBaseFile(saveDirectory.getText());	
-					}	
-//					} else {
-//						CreateInfoDataBaseFile createFile = new CreateInfoDataBaseFile();
-//					}
+						if (edit) {
+							new CreateInfoDataBaseFile(saveDirectory.getText(),info.getId());
+						} else {
+							new CreateInfoDataBaseFile(saveDirectory.getText());
+						}
+					}
 					textVersion.setBackground(null);
-	//				addDialog.setVisible(false);
-	//				addDialog.dispose();
-					//frame.dispose();
+					// addDialog.setVisible(false);
+					// addDialog.dispose();
+					// frame.dispose();
 					jDialog.dispose();
-	//				FilterTable.dialogFrame = null;		
+					// FilterTable.dialogFrame = null;
 					ProjectParam.FILTER_TABLE.update();
 				} else {
 					textVersion.setBackground(ProjectParam.NO_MATCH_COL);
