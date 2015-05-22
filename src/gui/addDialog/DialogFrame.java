@@ -34,6 +34,7 @@ import javax.swing.plaf.ComboBoxUI;
 import com.sun.java.swing.plaf.motif.MotifBorders.BevelBorder;
 
 import main.Main;
+import main.utilities.ConvertStructureToArray;
 import structure.GroupComplete;
 import structure.GroupInfo;
 import structure.ShowMessageLabel;
@@ -353,9 +354,11 @@ public class DialogFrame {
 				if (checkInput.versionCheck) {
 					if (!(saveDirectory.getText().isEmpty())) {
 						if (edit) {
-							new CreateInfoDataBaseFile(saveDirectory.getText(),info.getId());
+						        CreateInfoDataBaseFile createFile = new CreateInfoDataBaseFile(saveDirectory.getText(),info.getId());
+						        new UpdateDataList(createFile.getGroupInfoData(), edit, row);
 						} else {
-							new CreateInfoDataBaseFile(saveDirectory.getText());
+							CreateInfoDataBaseFile createFile = new CreateInfoDataBaseFile(saveDirectory.getText());
+						        new UpdateDataList(createFile.getGroupInfoData(), edit, row);
 						}
 					}
 					textVersion.setBackground(null);
@@ -364,7 +367,8 @@ public class DialogFrame {
 					// frame.dispose();
 					jDialog.dispose();
 					// FilterTable.dialogFrame = null;
-					ProjectParam.FILTER_TABLE.update();
+					//ProjectParam.FILTER_TABLE.update();
+					ProjectParam.FILTER_TABLE.updateTableData(ConvertStructureToArray.convert(Main.KeplastDataBaseList));
 				} else {
 					textVersion.setBackground(ProjectParam.NO_MATCH_COL);
 					stateShownField.setTimerText("Syntex Version Input wrong", 2);

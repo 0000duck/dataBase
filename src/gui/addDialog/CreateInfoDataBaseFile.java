@@ -2,10 +2,12 @@ package gui.addDialog;
 
 import gui.addDialog.fileList.FileListSelected;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import structure.GroupInfo;
 import utilities.ProjectParam;
 
 public class CreateInfoDataBaseFile {
@@ -26,6 +28,9 @@ public class CreateInfoDataBaseFile {
 	private final static String formatter = "%05d";
 	private int Id;
 
+	private GroupInfo dataGroupInfo = null;
+
+	private String absolutePath = null;
 	private String name = null;
 
 //	public CreateInfoDataBaseFile() {
@@ -35,13 +40,15 @@ public class CreateInfoDataBaseFile {
 //	}
 
 	public CreateInfoDataBaseFile(String path) {
-		Id = DialogFrame.getNextIdFile();
+		absolutePath = path;
+                Id = DialogFrame.getNextIdFile();
 		name = path + "\\" + "KP_" + String.format(formatter,Id) + infoFileType;
 		makeFile();
 	}
 	
 	public CreateInfoDataBaseFile(String path, String Idtmp) {
-		Id = Integer.parseInt(Idtmp);
+		absolutePath = path;
+                Id = Integer.parseInt(Idtmp);
 		name = path + "\\" + "KP_" + String.format(formatter,Id) + infoFileType;
 		makeFile();
 	}
@@ -51,6 +58,21 @@ public class CreateInfoDataBaseFile {
 
 			fileWriter = new FileWriter(name);
 
+			//Collect Data of Dialog
+			dataGroupInfo = new GroupInfo();
+			dataGroupInfo.setHeader(DialogFrame.textHeader.getText() );			
+			dataGroupInfo.setId(String.format(formatter,Id));
+			dataGroupInfo.setType(((String) DialogFrame.comboBoxType.getSelectedItem()).toString());
+			dataGroupInfo.setVersion(DialogFrame.textVersion.getText());
+			dataGroupInfo.setAutor(DialogFrame.textAutor.getText());
+			dataGroupInfo.setKeywords(DialogFrame.textKeywords.getText() );		
+			dataGroupInfo.setDescription(DialogFrame.textDescription.getText());
+			for (int i = 0; i < FileListSelected.listModelSelected.getSize(); i++) {
+				dataGroupInfo.setFileListElement(new File((String) FileListSelected.listModelSelected.getElementAt(i)));
+			}
+			dataGroupInfo.setPath(absolutePath);		
+
+			//write File
 			writeLine(conHeader + DialogFrame.textHeader.getText() + conHeader);
 			writeLine(conId + String.format(formatter,Id) + conId);
 			writeLine(conType + ((String) DialogFrame.comboBoxType.getSelectedItem()).toString() + conType);
@@ -78,5 +100,9 @@ public class CreateInfoDataBaseFile {
 	public void writeLine(String line) throws IOException {
 		fileWriter.write(line);
 		fileWriter.append(System.getProperty("line.separator")); // e.g. "\n"
+	}
+	
+	public GroupInfo getGroupInfoData (){
+		return dataGroupInfo;
 	}
 }

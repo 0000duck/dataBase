@@ -645,20 +645,30 @@ public class FilterTable extends JPanel implements Serializable {
 	    {
 	      try
 	      {
-	  		model.setDataVector(get(), columnNames);
-			repaintTable();
-			JTableProperties();
-			refreshButton.setEnabled(true);
-			//addButton.setEnabled(true);
-			//rootButton.setEnabled(true);
-			//setStateText(null, null,CustomConstant.ALTERNATING_ROW_COL,null);
-			busyLayer.resetBusy();
-			LogFile.write("End update data");
-			updateActive = false;
+	    	updateTableData((Object[][]) get());
 	      }
 	      catch ( /* InterruptedException, ExecutionException */ Exception e ) { }
 	    }
 	  }
+
+//	  public static void main( String[] args )
+//	  {
+//	    new SwingWorkerDemo().setVisible( true );
+//	  }
+	
+	public void updateTableData(Object[][] tableVector) {
+		model.setDataVector(tableVector, columnNames);
+		repaintTable();
+		JTableProperties();
+		refreshButton.setEnabled(true);
+		// addButton.setEnabled(true);
+		// rootButton.setEnabled(true);
+		// setStateText(null, null,CustomConstant.ALTERNATING_ROW_COL,null);
+		busyLayer.resetBusy();
+		LogFile.write("End update data");
+		updateActive = false;
+	}
+	  
 
 //	  public static void main( String[] args )
 //	  {
