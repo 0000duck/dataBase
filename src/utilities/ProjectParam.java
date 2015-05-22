@@ -11,7 +11,7 @@ public final class ProjectParam {
 
 	
 	//VERSION--------------------------------------------------------------------------------------------
-	public static final String DataBaseVersion = "DataBase 1.0Beta";
+	public static final String DataBaseVersion = "DataBase 1.1";
 	
 	//COLORS --------------------------------------------------------------------------------------------
 	public final static Color NO_MATCH_COL = new Color(255,140,140);
