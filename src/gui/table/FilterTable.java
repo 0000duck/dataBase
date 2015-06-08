@@ -263,10 +263,18 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		JLabel labelFilter = new JLabel("Filter ");
 		labelFilter.setFont(new Font("Arial", Font.BOLD, 13));
-		panelBottomSouth.add(labelFilter, BorderLayout.WEST);
 		
-		panelBottomSouth.add(jtfFilterField, BorderLayout.CENTER);
+		JPanel panelBottomSouthWest  = new JPanel(new BorderLayout());
 		
+		jtfFilterField.setPreferredSize(new Dimension(200,0));
+		
+		cbFilterVariant = new JComboBox(FilterVariants); // Why final
+		
+		panelBottomSouthWest.add(labelFilter,BorderLayout.WEST);
+		panelBottomSouthWest.add(jtfFilterField, BorderLayout.CENTER);
+		panelBottomSouthWest.add(cbFilterVariant,BorderLayout.EAST);
+		panelBottomSouth.add(panelBottomSouthWest, BorderLayout.WEST);
+
 		
 		ListSelectionListener tableSelectionListener = new ListSelectionListener() {
 
@@ -366,7 +374,6 @@ public class FilterTable extends JPanel implements Serializable {
 		});
 
 		// filter combobox update
-		cbFilterVariant = new JComboBox(FilterVariants); // Why final
 		cbFilterVariant.addActionListener(new ActionListener() {
 
 			@Override
@@ -375,7 +382,7 @@ public class FilterTable extends JPanel implements Serializable {
 
 			}
 		});
-		panelBottomSouth.add(cbFilterVariant, BorderLayout.EAST);
+		//panelBottomSouth.add(cbFilterVariant, BorderLayout.EAST);
 		
 		
 		//------------------------------- FRAME EAST
