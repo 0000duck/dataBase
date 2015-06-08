@@ -17,7 +17,7 @@ import main.Main;
 
 public class SerializeDataStr {
 	
-	final static String filename = ProjectParam.ROOT_PATH + ProjectParam.DATA_FOLDER + "row_data_ser";
+	final static String filename = ProjectParam.USERHOME + "\\dataBaseSerializedTableContent";
 	public boolean fileExists = false;
 	
 //	public Serlialization() {

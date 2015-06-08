@@ -25,6 +25,7 @@ public final class ProjectParam {
 	//public final static String ROOT_PATH = System.getProperty("user.dir");
 	public  static String ROOT_PATH = null;
 	public final static String DATA_FOLDER = "\\dataBase\\";
+	public final static String USERHOME = System.getProperty("user.home");
 		
 	//FILTER TABLE CONTENT STRUCTURE ---------------------------------------------------------------------
 	

@@ -29,8 +29,7 @@ public class Main {
 		//Initial steps during start up
 		
 		//Set up log file
-		String userHome = System.getProperty("user.home");
-		File logFile = new File(userHome, "dataBaseLog.txt");
+		File logFile = new File(ProjectParam.USERHOME, "dataBaseLog.txt");
 		LogFile.setLogFile(logFile);
 		
 		//get root path of *.jar file
