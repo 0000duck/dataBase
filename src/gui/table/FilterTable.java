@@ -270,7 +270,7 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		cbFilterVariant = new JComboBox(FilterVariants); // Why final
 		
-		panelBottomSouthWest.add(labelFilter,BorderLayout.WEST);
+		//panelBottomSouthWest.add(labelFilter,BorderLayout.WEST);
 		panelBottomSouthWest.add(jtfFilterField, BorderLayout.CENTER);
 		panelBottomSouthWest.add(cbFilterVariant,BorderLayout.EAST);
 		panelBottomSouth.add(panelBottomSouthWest, BorderLayout.WEST);
