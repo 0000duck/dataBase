@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		splitPane.setDividerSize(5);
 		//splitPane.setre
 		this.add(splitPane);
-		this.setPreferredSize(new Dimension(1300, 800));
+		this.setPreferredSize(new Dimension(1380, 800));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

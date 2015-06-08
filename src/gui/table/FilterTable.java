@@ -549,7 +549,7 @@ public class FilterTable extends JPanel implements Serializable {
 
 	private void JTableProperties() {
 		// set column width
-		jTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+		jTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		jTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		jTable.getColumnModel().getColumn(2).setPreferredWidth(450);
 		jTable.getColumnModel().getColumn(3).setPreferredWidth(250);
