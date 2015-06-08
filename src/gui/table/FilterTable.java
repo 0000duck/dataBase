@@ -76,8 +76,8 @@ import structure.DummyIconPath;
 import structure.Group;
 import structure.GroupCollection;
 import sun.security.util.ResourcesMgr;
-import utilities.ProjectParam;
 import utilities.LogFile;
+import utilities.ProjectParam;
 
 public class FilterTable extends JPanel implements Serializable {
 	
@@ -207,7 +207,7 @@ public class FilterTable extends JPanel implements Serializable {
 		JPanel panelBottomNorth = new JPanel(new BorderLayout(10,10));
 		JPanel panelDummyEast = new JPanel (new BorderLayout());
 
-		panelBottomframe.setBorder(BorderFactory.createRaisedBevelBorder());
+		//panelBottomframe.setBorder(BorderFactory.createRaisedBevelBorder());
 		
 		
 		panelBottomNorth.setBorder(new EmptyBorder(5,5,15,5));
@@ -435,16 +435,18 @@ public class FilterTable extends JPanel implements Serializable {
 		//--------------------------------- FRAME
 		this.setLayout(new BorderLayout());
 		
+	
 		this.add(mainNortPanel, BorderLayout.NORTH);
 		this.add(panelFrameWest, BorderLayout.EAST);
 		
 		panelFrameWest.setBorder(BorderFactory.createRaisedBevelBorder());
 
+
+		
 		// add 2. Layer panel in frame south
 		this.add(panelBottomframe, BorderLayout.SOUTH);
 
 		// add scroll panel in center of frame
-
 		JScrollPane jScrollPan = new JScrollPane(jTable);
 		jScrollPan.setBorder(new EmptyBorder(5,5,5,5));
 		//this.add(new JSeparator(JSeparator.VERTICAL), BorderLayout.EAST);
@@ -455,10 +457,19 @@ public class FilterTable extends JPanel implements Serializable {
 		busyLayer = new WaitLayerUI1();
 		//JPanel jEnvelopePanel = new JPanel(new BorderLayout());
 		//jEnvelopePanel.add(busyLayer, BorderLayout.CENTER);
-
 		
 		JLayer<JPanel> jLayer = new JLayer<JPanel>(jPanelType,busyLayer);
-		this.add(jLayer, BorderLayout.CENTER);
+		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,jLayer,panelBottomframe);  
+		splitPane.setResizeWeight(1);
+		
+		//splitPane.setOneTouchExpandable(true);
+		Dimension size = splitPane.getSize();
+		splitPane.setDividerLocation(650);
+		splitPane.setDividerSize(5);
+
+		
+		this.add(splitPane, BorderLayout.CENTER);
 		
 		
 		//jScrollPan.setSize(new Dimension(1200,1000));

@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import utilities.ProjectParam;
 import utilities.LogFile;
+import utilities.ProjectParam;
 
 public class ReadConfig {
 

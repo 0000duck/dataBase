@@ -15,9 +15,26 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		
+
 		super(ProjectParam.DataBaseVersion);
+
+		//Filter Table
+
 		ProjectParam.FILTER_TABLE = new FilterTable();
-		this.add(ProjectParam.FILTER_TABLE);
+		
+		//Info Panel
+		JPanel infoPanel = new JPanel();
+
+		
+		//create SplitPane
+		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,true,infoPanel,ProjectParam.FILTER_TABLE);  
+		//splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(0);
+		splitPane.setLastDividerLocation(20);
+		splitPane.setDividerSize(10);
+		splitPane.setDividerSize(5);
+		//splitPane.setre
+		this.add(splitPane);
 		this.setPreferredSize(new Dimension(1300, 800));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

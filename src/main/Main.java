@@ -15,8 +15,8 @@ import structure.Group;
 import structure.GroupCollection;
 import structure.GroupComplete;
 import structure.GroupInfo;
-import utilities.ProjectParam;
 import utilities.LogFile;
+import utilities.ProjectParam;
 
 public class Main {
 
