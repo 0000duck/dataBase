@@ -268,9 +268,13 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		jtfFilterField.setPreferredSize(new Dimension(200,0));
 		
+		ImageIcon iconSearch = LoadImageIcon.createImageIcon("/img/Search24x24.png","");
+		JLabel iconLabel = new JLabel();
+		iconLabel.setIcon(iconSearch);
+		
 		cbFilterVariant = new JComboBox(FilterVariants); // Why final
 		
-		//panelBottomSouthWest.add(labelFilter,BorderLayout.WEST);
+		panelBottomSouthWest.add(iconLabel,BorderLayout.WEST);
 		panelBottomSouthWest.add(jtfFilterField, BorderLayout.CENTER);
 		panelBottomSouthWest.add(cbFilterVariant,BorderLayout.EAST);
 		panelBottomSouth.add(panelBottomSouthWest, BorderLayout.WEST);
@@ -391,6 +395,7 @@ public class FilterTable extends JPanel implements Serializable {
 		ImageIcon iconAdd = LoadImageIcon.createImageIcon("/img/Edit_50x50.png","");
 		ImageIcon iconRoot = LoadImageIcon.createImageIcon("/img/Explorer_Window_40x40.png","");
 		ImageIcon iconlogFile = LoadImageIcon.createImageIcon("/img/File_40x40.png","");
+
 		
 		GridLayout gridLayout = new GridLayout(4,1,5,5);
 		refreshButton = new JButton (iconRefresh);
