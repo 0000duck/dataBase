@@ -75,6 +75,7 @@ import structure.DummyFileInfo;
 import structure.DummyIconPath;
 import structure.Group;
 import structure.GroupCollection;
+import structure.searchTextField.JSearchTextField;
 import sun.security.util.ResourcesMgr;
 import utilities.LogFile;
 import utilities.ProjectParam;
@@ -120,7 +121,7 @@ public class FilterTable extends JPanel implements Serializable {
 	private TableRowSorter<DefaultTableModelExtend> rowSorter;
 
 	//Filter of list
-	private JTextField jtfFilterField;
+	private JSearchTextField jtfFilterField;
 
 	//combobox select column for filter
 	private JComboBox cbFilterVariant = null;
@@ -171,7 +172,8 @@ public class FilterTable extends JPanel implements Serializable {
 		jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		rowSorter = new TableRowSorter<DefaultTableModelExtend>((DefaultTableModelExtend) jTable.getModel());
 		jTable.setRowSorter(rowSorter);
-		jtfFilterField = new JTextField();
+		jtfFilterField = new JSearchTextField();
+
 
 //		hilit = new DefaultHighlighter();
 //		painter = new DefaultHighlighter.DefaultHighlightPainter(HILIT_COLOR);
@@ -249,7 +251,7 @@ public class FilterTable extends JPanel implements Serializable {
 		//splitPane.rigt
 		
 		//panelBottomNorth.setMinimumSize(new Dimension(100,50));
-		
+
 		//Embed cell display label in scroll bar panel
 		JScrollPane scrollbarCellDetails = new JScrollPane(displCellDetailsLabel);
 		//scrollbarCellDetails.setPreferredSize(new Dimension(0,100));
@@ -268,13 +270,14 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		jtfFilterField.setPreferredSize(new Dimension(200,0));
 		
-		ImageIcon iconSearch = LoadImageIcon.createImageIcon("/img/Search24x24.png","");
+		ImageIcon iconSearch = LoadImageIcon.createImageIcon("/img/Search15x15.png","");
 		JLabel iconLabel = new JLabel();
 		iconLabel.setIcon(iconSearch);
 		
 		cbFilterVariant = new JComboBox(FilterVariants); // Why final
+		jtfFilterField.setIcon(iconSearch);
 		
-		panelBottomSouthWest.add(iconLabel,BorderLayout.WEST);
+		//panelBottomSouthWest.add(iconLabel,BorderLayout.WEST);
 		panelBottomSouthWest.add(jtfFilterField, BorderLayout.CENTER);
 		panelBottomSouthWest.add(cbFilterVariant,BorderLayout.EAST);
 		panelBottomSouth.add(panelBottomSouthWest, BorderLayout.WEST);
