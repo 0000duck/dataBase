@@ -318,11 +318,12 @@ class FileNode {
 	public boolean expand(DefaultMutableTreeNode parent) {
 		DefaultMutableTreeNode flag = (DefaultMutableTreeNode) parent
 				.getFirstChild();
-		if (flag == null) // No flag
-			return false;
-		Object obj = flag.getUserObject();
-		if (!(obj instanceof Boolean))
-			return false; // Already expanded
+
+		//		if (flag == null) // No flag
+//			return false;
+//		Object obj = flag.getUserObject();
+//		if (!(obj instanceof Boolean))
+//			return false; // Already expanded
 
 		parent.removeAllChildren(); // Remove Flag
 
