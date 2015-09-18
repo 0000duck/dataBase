@@ -7,12 +7,19 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.ScrollPane;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -25,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
+import javax.swing.TransferHandler;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.TreePath;
 
@@ -41,9 +49,10 @@ public class FileListAll extends JPanel {
 	
 	public FileListAll() {
 		super();
-		
+	
 		listModelAll = new DefaultListModel<String>();
 		fileList = new JList<String>(listModelAll);
+
 		//fileList.setLayoutOrientation(JList.VERTICAL_WRAP);
 		//fileList.setVisibleRowCount(-1);
 			
@@ -61,13 +70,67 @@ public class FileListAll extends JPanel {
 		//setPreferredSize(new Dimension(500,200));
 		setBorder(new EmptyBorder(0,2,2,2));
 
+		fileList.setDragEnabled(true);
+		fileList.setTransferHandler(new TransferHandler() {
+
+			@Override
+			public boolean canImport(TransferHandler.TransferSupport info) {
+				// we only import FileList
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					return false;
+				}
+				return true;
+			}
+
+			@Override
+			public boolean importData(TransferHandler.TransferSupport info) {
+				if (!info.isDrop()) {
+					return false;
+				}
+
+				// Check for FileList flavor
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					// displayDropLocation("List doesn't accept a drop of this type.");
+					return false;
+				}
+
+				// Get the fileList that is being dropped.
+				Transferable t = info.getTransferable();
+				List<File> data;
+				try {
+					data = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+				} catch (Exception e) {
+					return false;
+				}
+				DefaultListModel model = (DefaultListModel) fileList.getModel();
+				for (File file : data) {
+
+					// 1. Add Elements in JList
+					model.addElement(file.getName());
+
+					// 2. Copy Files to target
+					Path copySourcePath = Paths.get(file.getPath());
+					Path copyTargetPath = Paths.get(DialogFrame.getSaveDirectory() + "\\" + file.getName());
+
+					try {
+						Files.copy(copySourcePath, copyTargetPath);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+				return true;
+			}
+		});
+
 		popup = new JPopupMenu();
-		
+
 		Action aAdd = new AbstractAction("Add") {
 			public void actionPerformed(ActionEvent e) {
 
 				addElement(clickedPath, selectedidx);
-				
+
 			}
 
 		};

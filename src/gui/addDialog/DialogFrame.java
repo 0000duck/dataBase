@@ -87,6 +87,10 @@ public class DialogFrame {
 		
 
 	}
+	
+	public static String getSaveDirectory() {
+		return saveDirectory.getText();
+	}
 
 	private void createFrame() {
 		//frame = new JFrame( "Create *.dataBase File");
