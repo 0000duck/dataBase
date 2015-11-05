@@ -3,6 +3,7 @@ package gui.table;
 import gui.addDialog.DialogFrame;
 import gui.renderer.AdvancedCellRenderer;
 import gui.renderer.TableCellRendererJTextArea;
+import gui.table.displayWindow.DisplayDialog;
 import gui.utilities.LoadImageIcon;
 import gui.utilities.TapTapTap;
 import gui.utilities.UtilitiesHiglight;
@@ -309,7 +310,8 @@ public class FilterTable extends JPanel implements Serializable {
 					displCellDetailsLabel.setText(show.getText());
 					displCellDetailsLabel.setForeground(null);
 					displCellDetailsLabel.setFont(new Font("Arial",Font.ITALIC, 13));	
-					
+
+			
 				} catch (Exception e2) {
 					System.out.println("Out of Bounds exception during table selection changed");
 					// TODO: handle exception
@@ -333,6 +335,7 @@ public class FilterTable extends JPanel implements Serializable {
 				int row =  jTable.convertRowIndexToModel(jTable.getSelectedRow());
 				int column = jTable.getSelectedColumn();
 				
+				
 				if (e.getClickCount() == 2) {
 					
 					//open explorer
@@ -355,6 +358,10 @@ public class FilterTable extends JPanel implements Serializable {
 					if (column == columnNrDialog) {
 						dialogFrame = new DialogFrame(row);
 					}
+				}
+				
+				if (e.getClickCount() == 1) {
+					DisplayDialog.getInstanceAvailability();
 				}
 				
 //				if (e.getClickCount() == 1) {
