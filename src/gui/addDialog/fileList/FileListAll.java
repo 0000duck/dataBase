@@ -166,7 +166,6 @@ public class FileListAll extends JPanel {
 		  		  JLabel tmpJLabel = new JLabel();
 		  		  tmpJLabel.setText(listOfFiles[i].getPath());
 		  		  listModelAll.addElement(listOfFiles[i].getName());
-		    	  System.out.println("File " + listOfFiles[i].getName());
 //		      } else if (listOfFiles[i].isDirectory()) {
 //		        System.out.println("Directory " + listOfFiles[i].getName());
 		      }

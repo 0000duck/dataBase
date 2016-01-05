@@ -211,7 +211,7 @@ public class FilterTable extends JPanel implements Serializable {
 		JPanel panelDummyEast = new JPanel (new BorderLayout());
 
 		//panelBottomframe.setBorder(BorderFactory.createRaisedBevelBorder());
-		
+
 		
 		panelBottomNorth.setBorder(new EmptyBorder(5,5,15,5));
 		panelBottomSouth.setBorder(new EmptyBorder(5,5,5,5));
@@ -233,7 +233,7 @@ public class FilterTable extends JPanel implements Serializable {
 		displCellDetailsLabel.setHighlighter(hilit);
 		painter = new DefaultHighlighter.DefaultHighlightPainter(ProjectParam.ALTERNATING_ROW_COL);
 
-		panelBottomframe.add(panelBottomNorth,BorderLayout.CENTER);
+		//panelBottomframe.add(panelBottomNorth,BorderLayout.CENTER);
 		panelBottomframe.add(panelBottomSouth,BorderLayout.SOUTH);
 		
 		
@@ -259,7 +259,7 @@ public class FilterTable extends JPanel implements Serializable {
 
 
 		//panelBottomNorth.add(new JSeparator(),BorderLayout.NORTH);
-		panelBottomNorth.add(scrollbarCellDetails,BorderLayout.CENTER);
+		//panelBottomNorth.add(scrollbarCellDetails,BorderLayout.CENTER);
 		scrollbarCellDetails.setBorder(new EmptyBorder(0,0,0,0));
 		//panelBottomNorth.setMaximumSize(new Dimension(25,25));
 		
@@ -361,7 +361,10 @@ public class FilterTable extends JPanel implements Serializable {
 				}
 				
 				if (e.getClickCount() == 1) {
-					DisplayDialog.getInstanceAvailability();
+					if (column != columnNrExp && column != columnNrDialog) {
+						DisplayDialog.setDialogInputData(Main.KeplastDataBaseList.
+												         getElementGroup().get(row).getGroupInfo());
+					}
 				}
 				
 //				if (e.getClickCount() == 1) {
@@ -465,8 +468,7 @@ public class FilterTable extends JPanel implements Serializable {
 
 
 		
-		// add 2. Layer panel in frame south
-		this.add(panelBottomframe, BorderLayout.SOUTH);
+
 
 		// add scroll panel in center of frame
 		JScrollPane jScrollPan = new JScrollPane(jTable);
@@ -482,7 +484,7 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		JLayer<JPanel> jLayer = new JLayer<JPanel>(jPanelType,busyLayer);
 		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,jLayer,panelBottomframe);  
+		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,jLayer,null);  
 		splitPane.setResizeWeight(1);
 		
 		//splitPane.setOneTouchExpandable(true);
@@ -491,8 +493,12 @@ public class FilterTable extends JPanel implements Serializable {
 		splitPane.setDividerSize(5);
 
 		
-		this.add(splitPane, BorderLayout.CENTER);
+		this.add(jLayer, BorderLayout.CENTER);
+		// add 2. Layer panel in frame south
 		
+		panelBottomframe.setBorder(BorderFactory.createEtchedBorder());
+		
+		this.add(panelBottomframe, BorderLayout.SOUTH);
 		
 		//jScrollPan.setSize(new Dimension(1200,1000));
 		//this.setSize(new Dimension(1200,1000));

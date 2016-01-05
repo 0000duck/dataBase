@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 		splitPane.setDividerSize(10);
 		splitPane.setDividerSize(5);
 		//splitPane.setre
-		this.add(splitPane);
+		this.add(ProjectParam.FILTER_TABLE);
 		this.setPreferredSize(new Dimension(1380, 800));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
