@@ -464,7 +464,7 @@ public class FilterTable extends JPanel implements Serializable {
 		this.add(mainNortPanel, BorderLayout.NORTH);
 		this.add(panelFrameWest, BorderLayout.EAST);
 		
-		panelFrameWest.setBorder(BorderFactory.createRaisedBevelBorder());
+		//panelFrameWest.setBorder(BorderFactory.createRaisedBevelBorder());
 
 
 		
