@@ -35,5 +35,9 @@ public final class ProjectParam {
 	//SELECT OPTIONS FOR CREATING NEW ELEMENT
 	public static String[] SELECT_OPTIONS = null;
 	
+	//SEPERATOR ON TARGET SYSTEM
+	public final static String LINE_SEPERATOR = System.getProperty("line.separator");
+	
+	
 	
 }

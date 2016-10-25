@@ -96,6 +96,8 @@ public class FilterTable extends JPanel implements Serializable {
 	public static final int columnNrExp = 7;
 	public static final int columnNrDialog = 8;
 	
+
+	
 	public static String text = "";
 	
 	public boolean updateActive = false;
@@ -413,14 +415,16 @@ public class FilterTable extends JPanel implements Serializable {
 		GridLayout gridLayout = new GridLayout(4,1,5,5);
 		refreshButton = new JButton (iconRefresh);
 		refreshButton.setPreferredSize(new Dimension(45,45));
+		refreshButton.setToolTipText("Refresh the list of items by browsing all directories on the workspace");
 		addButton = new JButton (iconAdd);
 		addButton.setPreferredSize(new Dimension(45,45));
+		addButton.setToolTipText("Open Dialog to add new item in DataBase");
 		rootButton = new JButton (iconRoot);
 		rootButton.setPreferredSize(new Dimension(45,45));
-		
+		rootButton.setToolTipText("Open root directory");
 		logFileButton = new JButton(iconlogFile);
 		logFileButton.setPreferredSize(new Dimension(45,45));
-
+		logFileButton.setToolTipText("Open log file");
 		
 		if (Main.errorApplication) {
 			refreshButton.setEnabled(false);
