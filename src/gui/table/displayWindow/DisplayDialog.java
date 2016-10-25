@@ -5,32 +5,36 @@ import gui.utilities.LoadImageIcon;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.MouseInfo;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
+import java.io.File;
+import java.io.IOException; 
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JList;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 
-import com.sun.xml.internal.ws.api.server.Container;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.MouseInputListener;
 
 import structure.GroupInfo;
 import utilities.ProjectParam;
@@ -51,6 +55,11 @@ public class DisplayDialog extends JDialog {
 	private static JLabel m_typeLabel = null;
 	private static JTextArea m_descBody = null;
 	private static LinkList m_linkList = null;
+	
+	private Color progressColor = new Color(255, 216, 0);
+	private Color doneColor = new Color(0,127,70);
+	
+	JLabel status;
 
 	private DisplayDialog () {
 		super(ProjectParam.MAIN_FRAME, "Information");
@@ -186,45 +195,6 @@ public class DisplayDialog extends JDialog {
 		final JLabel labelIconInfo = new JLabel();
 		labelIconInfo.setIcon(iconInfo);
 		//addInfoPanel.add(labelIconInfo);
-		labelIconInfo.addMouseListener(new MouseListener () {
-			@Override
-			public void mouseClicked(MouseEvent event) {
-				if (event.getComponent().getName() == labelIconInfo.getName()){
-					closeDialog();
-				}
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-		});
-		ImageIcon iconZip = LoadImageIcon.createImageIcon("/img/ZipFolder_50x50.png","");
-		final JLabel labelIconZip = new JLabel();
-		labelIconZip.setIcon(iconZip);
-		addInfoPanel.add(labelIconZip);
-		labelIconZip.addMouseListener(new MouseListener () {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ZipArchive.create(m_groupInfo);
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-		
-			
-			
-		});
-
 		
 		/* 
 		 * Add Body
@@ -244,6 +214,14 @@ public class DisplayDialog extends JDialog {
 		descScrollPanel.setViewportBorder(null);
 		descScrollPanel.setBorder(null);
 		gapPanel.add(descScrollPanel,BorderLayout.CENTER);
+	
+
+		/*
+		 * Add South Panel
+		 */
+		
+		JPanel southContent = new JPanel(new BorderLayout());
+		gapPanel.add(southContent, BorderLayout.SOUTH);
 		
 		/*
 		 * Add Document Links
@@ -252,7 +230,99 @@ public class DisplayDialog extends JDialog {
 		JScrollPane linkScrollPane = new JScrollPane(m_linkList);
 		linkScrollPane.setPreferredSize(new Dimension(200,50));
 		linkScrollPane.setBorder(null);
-		gapPanel.add(linkScrollPane, BorderLayout.SOUTH);
+		southContent.add(linkScrollPane, BorderLayout.NORTH);
+		//gapPanel.add(linkScrollPane, BorderLayout.SOUTH);
 
+		
+		/*
+		 * Add zip mechansim
+		 */
+		
+		BorderLayout zipBorderLayout = new BorderLayout();
+		JPanel zipPanel = new JPanel(zipBorderLayout);
+		southContent.add(zipPanel, BorderLayout.CENTER);
+		
+		FlowLayout zipFlowLayout = new FlowLayout();
+		JPanel zipFlowPanel = new JPanel(zipFlowLayout);
+		zipPanel.add(zipFlowPanel, BorderLayout.WEST);
+		
+		ImageIcon iconZip = LoadImageIcon.createImageIcon("/img/folder_zip_40x40.png", "");
+		final JLabel labelIconZip = new JLabel();
+		labelIconZip.setIcon(iconZip);
+		labelIconZip.setToolTipText("Click to create zip archive");
+		
+	
+		JButton zipButton = new JButton(iconZip);
+		zipButton.setPreferredSize(new Dimension(40, 40));
+		zipButton.addActionListener(new ActionListener() {
+	
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				status.setText(".. WAIT");
+				status.setForeground(progressColor);
+				ZipArchive.create(m_groupInfo);
+				status.setText(".. DONE");
+				status.setForeground(doneColor);
+			}
+			
+		});
+		
+		zipFlowPanel.add(zipButton);
+		
+		final JLabel exportPath = new JLabel();
+		final Font labelFont = new Font("Arial", Font.PLAIN, 13);
+		final Font labelFontEntered = new Font("Arial", Font.BOLD, 13);
+		exportPath.setBorder(new EmptyBorder(0, 10, 0, 0));
+		exportPath.setFont(labelFont);
+		exportPath.setText(ZipArchive.ZIP_DIRECTORY);
+		exportPath.setToolTipText("Click to open directory");
+		
+		zipFlowPanel.add(exportPath);
+		
+		
+		exportPath.addMouseListener( new MouseInputListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Desktop.getDesktop().open(new File(exportPath.getText()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exportPath.setFont(labelFontEntered);	
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {	
+				exportPath.setFont(labelFont);
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
+			
+		});
+		
+		status = new JLabel (".. READY");
+		status.setForeground(Color.GRAY);
+		zipPanel.add(status, BorderLayout.EAST);
+		
+
+				
 	}
 }

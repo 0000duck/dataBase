@@ -16,6 +16,8 @@ import utilities.ProjectParam;
 public class ZipArchive {
 
 	private static final String INFO_FILE_NAME = "info.txt";
+	
+	public static String ZIP_DIRECTORY = ProjectParam.USERHOME;
 
 	public static void create(GroupInfo groupInfo) {
 		try {
@@ -23,7 +25,7 @@ public class ZipArchive {
 			
 			String exportName = groupInfo.getHeader().replaceAll("\\s+", "") + groupInfo.getVersion(); 
 			String exportNameValid = exportName.replaceAll("[^a-zA-Z0-9.-]", "_");
-			File file = (new File(ProjectParam.USERHOME + /*"\\Desktop" +*/  "\\" + exportNameValid + ".zip"));
+			File file = (new File(ZIP_DIRECTORY + /*"\\Desktop" +*/  "\\" + exportNameValid + ".zip"));
 			System.out.println(file);
 			FileOutputStream fos = new FileOutputStream(file);
 			ZipOutputStream zos = new ZipOutputStream(fos);
