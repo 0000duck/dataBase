@@ -55,6 +55,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -277,7 +278,9 @@ public class FilterTable extends JPanel implements Serializable {
 		JLabel iconLabel = new JLabel();
 		iconLabel.setIcon(iconSearch);
 		
+		UIManager.put("ComboBox.borderPaintsFocus", Boolean.FALSE);		
 		cbFilterVariant = new JComboBox(FilterVariants); // Why final
+		cbFilterVariant.setBackground(Color.WHITE);
 		jtfFilterField.setIcon(iconSearch);
 		
 		//panelBottomSouthWest.add(iconLabel,BorderLayout.WEST);
@@ -414,15 +417,19 @@ public class FilterTable extends JPanel implements Serializable {
 		
 		GridLayout gridLayout = new GridLayout(4,1,5,5);
 		refreshButton = new JButton (iconRefresh);
+		refreshButton.setBackground(Color.WHITE);
 		refreshButton.setPreferredSize(new Dimension(45,45));
 		refreshButton.setToolTipText("Refresh the list of items by browsing all directories on the workspace");
 		addButton = new JButton (iconAdd);
+		addButton.setBackground(Color.WHITE);
 		addButton.setPreferredSize(new Dimension(45,45));
 		addButton.setToolTipText("Open Dialog to add new item in DataBase");
 		rootButton = new JButton (iconRoot);
 		rootButton.setPreferredSize(new Dimension(45,45));
 		rootButton.setToolTipText("Open root directory");
+		rootButton.setBackground(Color.WHITE);
 		logFileButton = new JButton(iconlogFile);
+		logFileButton.setBackground(Color.WHITE);
 		logFileButton.setPreferredSize(new Dimension(45,45));
 		logFileButton.setToolTipText("Open log file");
 		

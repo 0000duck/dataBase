@@ -172,6 +172,7 @@ public class DialogFrame {
 		// outerPanel2.add(stateShownField,BorderLayout.SOUTH);
 
 		directoryButton = new JButton("Select");
+		directoryButton.setBackground(Color.WHITE);
 		directoryButton.setFont(labelFont);
 		directoryButton.setPreferredSize(new Dimension(80, 25));
 		treeMainInnerSouthPanel.add(directoryButton, BorderLayout.EAST);
@@ -192,6 +193,7 @@ public class DialogFrame {
 
 		// FRAME SOUTH
 		JButton createButton = new JButton("Save");
+		createButton.setBackground(Color.WHITE);
 		createButton.setFont(labelFont);
 		createButton.setPreferredSize(new Dimension(100, 25));
 		// createButton.setMaximumSize(new Dimension(15, 30));

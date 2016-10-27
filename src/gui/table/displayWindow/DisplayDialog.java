@@ -253,6 +253,7 @@ public class DisplayDialog extends JDialog {
 		
 	
 		JButton zipButton = new JButton(iconZip);
+		zipButton.setBackground(Color.WHITE);
 		zipButton.setPreferredSize(new Dimension(40, 40));
 		zipButton.addActionListener(new ActionListener() {
 	
