@@ -18,6 +18,7 @@ public class CreateInfoDataBaseFile {
 	public final static String conType = "<Type>";
 	public final static String conVersion = "<Version>";
 	public final static String conAutor = "<Autor>";
+	public final static String conIntern = "<Intern>";
 	public final static String conKeywords = "<Keywords>";
 	public final static String conDescription = "<Description>";
 	public final static String conFile = "<File>";
@@ -64,6 +65,7 @@ public class CreateInfoDataBaseFile {
 			dataGroupInfo.setType(((String) DialogFrame.basicInfo.comboBoxType.getSelectedItem()).toString());
 			dataGroupInfo.setVersion(DialogFrame.basicInfo.textVersion.getText());
 			dataGroupInfo.setAutor(DialogFrame.basicInfo.textAutor.getText());
+			dataGroupInfo.setIntern(DialogFrame.basicInfo.chkIntern.isSelected());
 			dataGroupInfo.setKeywords(DialogFrame.basicInfo.textKeywords.getText() );		
 			dataGroupInfo.setDescription(DialogFrame.basicInfo.textDescription.getText());
 			for (int i = 0; i < FileListSelected.listModelSelected.getSize(); i++) {
@@ -77,6 +79,7 @@ public class CreateInfoDataBaseFile {
 			writeLine(conType + ((String) DialogFrame.basicInfo.comboBoxType.getSelectedItem()).toString() + conType);
 			writeLine(conVersion + DialogFrame.basicInfo.textVersion.getText() + conVersion);
 			writeLine(conAutor + DialogFrame.basicInfo.textAutor.getText() + conAutor);
+			writeLine(conIntern + DialogFrame.basicInfo.chkIntern.isSelected() + conIntern);
 			writeLine(conKeywords + DialogFrame.basicInfo.textKeywords.getText() + conKeywords);
 			writeLine(conDescription + DialogFrame.basicInfo.textDescription.getText() + conDescription);
 			for (int i = 0; i < FileListSelected.listModelSelected.getSize(); i++) {

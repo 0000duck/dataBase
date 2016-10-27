@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -35,6 +36,7 @@ public class BasicInfo extends JPanel {
 	public JTextField textAutor;
 	public JTextField textKeywords;
 	public JTextArea textDescription;
+	public JCheckBox chkIntern;
 	
 	public BasicInfo () {
 		
@@ -140,6 +142,25 @@ public class BasicInfo extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(infoFileContentPanel,BorderLayout.CENTER);
 		this.setBorder(new EmptyBorder(5,5,5,5));
+
+		JPanel addInfoFileContentPanel = new JPanel (new BorderLayout());
+		addInfoFileContentPanel.setBorder(BorderFactory.createTitledBorder(null,"Additional Info",0,0,headerFont));
+		
+		JPanel addinfoFileContentPanelCenter = new JPanel(new GridLayout(1,1));
+	
+		//Input Intern
+		JLabel labelIntern = new JLabel ("Intern");
+		labelIntern.setFont(labelFont);
+		JPanel containerIntern = new JPanel(new BorderLayout());
+		labelIntern.setPreferredSize(new Dimension(textWidth,0));
+		containerIntern.add(labelIntern,BorderLayout.WEST);
+		chkIntern = new JCheckBox();
+		containerIntern.add(chkIntern,BorderLayout.CENTER);
+		
+		addinfoFileContentPanelCenter.add(containerIntern);
+		addInfoFileContentPanel.add(addinfoFileContentPanelCenter, BorderLayout.CENTER);
+		
+		this.add(addInfoFileContentPanel,BorderLayout.SOUTH);
 		
 
 		
@@ -156,6 +177,7 @@ public class BasicInfo extends JPanel {
 		//TODO: use InputVerifier to check if input is OK
 		textVersion.setText(DialogFrame.infoData.getVersion());
 		textAutor.setText(DialogFrame.infoData.getAutor());
+		chkIntern.setSelected(DialogFrame.infoData.getIntern());
 		textKeywords.setText(DialogFrame.infoData.getKeyWords());
 		textDescription.setText(DialogFrame.infoData.getDescription());
 		DialogFrame.saveDirectory.setText(DialogFrame.infoData.getPath());

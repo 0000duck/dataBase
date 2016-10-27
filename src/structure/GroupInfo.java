@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class GroupInfo implements Serializable {
 
 	private String Id, Header, Description, Version, Keywords, Autor, Type, Path;
+	private boolean Intern;
 	private ArrayList<File> arraylist;
 
 	public GroupInfo() {
@@ -25,6 +26,10 @@ public class GroupInfo implements Serializable {
 
 	public String getAutor() {
 		return Autor;
+	}
+	
+	public boolean getIntern() {
+		return Intern;
 	}
 
 	public String getHeader() {
@@ -67,6 +72,10 @@ public class GroupInfo implements Serializable {
 
 	public void setAutor(String autor) {
 		Autor = autor;
+	}
+	
+	public void setIntern(boolean intern) {
+		Intern = intern;
 	}
 
 	public void setHeader(String Header) {

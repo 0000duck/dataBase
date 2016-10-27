@@ -35,6 +35,7 @@ public class DisassembleInfoFile {
 		Element.setAutor(ParseString(tmp,CreateInfoDataBaseFile.conAutor));
 		Element.setKeywords(ParseString(tmp,CreateInfoDataBaseFile.conKeywords));
 		Element.setHeader(ParseString(tmp,CreateInfoDataBaseFile.conHeader));
+		Element.setIntern(Boolean.valueOf(ParseString(tmp,CreateInfoDataBaseFile.conIntern)));
 		Element.setDescription(ParseString(tmp,CreateInfoDataBaseFile.conDescription));
 		Element.setId(ParseString(tmp,CreateInfoDataBaseFile.conId));
 		Element.setType(ParseString(tmp,CreateInfoDataBaseFile.conType));
