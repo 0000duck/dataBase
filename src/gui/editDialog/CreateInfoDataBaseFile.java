@@ -1,12 +1,11 @@
-package gui.addDialog;
-
-import gui.addDialog.fileList.FileListSelected;
+package gui.editDialog;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import gui.editDialog.tabFiles.FileListSelected;
 import structure.GroupInfo;
 import utilities.ProjectParam;
 
@@ -60,26 +59,26 @@ public class CreateInfoDataBaseFile {
 
 			//Collect Data of Dialog
 			dataGroupInfo = new GroupInfo();
-			dataGroupInfo.setHeader(DialogFrame.textHeader.getText() );			
+			dataGroupInfo.setHeader(DialogFrame.basicInfo.textHeader.getText() );			
 			dataGroupInfo.setId(String.format(formatter,Id));
-			dataGroupInfo.setType(((String) DialogFrame.comboBoxType.getSelectedItem()).toString());
-			dataGroupInfo.setVersion(DialogFrame.textVersion.getText());
-			dataGroupInfo.setAutor(DialogFrame.textAutor.getText());
-			dataGroupInfo.setKeywords(DialogFrame.textKeywords.getText() );		
-			dataGroupInfo.setDescription(DialogFrame.textDescription.getText());
+			dataGroupInfo.setType(((String) DialogFrame.basicInfo.comboBoxType.getSelectedItem()).toString());
+			dataGroupInfo.setVersion(DialogFrame.basicInfo.textVersion.getText());
+			dataGroupInfo.setAutor(DialogFrame.basicInfo.textAutor.getText());
+			dataGroupInfo.setKeywords(DialogFrame.basicInfo.textKeywords.getText() );		
+			dataGroupInfo.setDescription(DialogFrame.basicInfo.textDescription.getText());
 			for (int i = 0; i < FileListSelected.listModelSelected.getSize(); i++) {
 				dataGroupInfo.setFileListElement(new File((String) FileListSelected.listModelSelected.getElementAt(i)));
 			}
 			dataGroupInfo.setPath(absolutePath);		
 
 			//write File
-			writeLine(conHeader + DialogFrame.textHeader.getText() + conHeader);
+			writeLine(conHeader + DialogFrame.basicInfo.textHeader.getText() + conHeader);
 			writeLine(conId + String.format(formatter,Id) + conId);
-			writeLine(conType + ((String) DialogFrame.comboBoxType.getSelectedItem()).toString() + conType);
-			writeLine(conVersion + DialogFrame.textVersion.getText() + conVersion);
-			writeLine(conAutor + DialogFrame.textAutor.getText() + conAutor);
-			writeLine(conKeywords + DialogFrame.textKeywords.getText() + conKeywords);
-			writeLine(conDescription + DialogFrame.textDescription.getText() + conDescription);
+			writeLine(conType + ((String) DialogFrame.basicInfo.comboBoxType.getSelectedItem()).toString() + conType);
+			writeLine(conVersion + DialogFrame.basicInfo.textVersion.getText() + conVersion);
+			writeLine(conAutor + DialogFrame.basicInfo.textAutor.getText() + conAutor);
+			writeLine(conKeywords + DialogFrame.basicInfo.textKeywords.getText() + conKeywords);
+			writeLine(conDescription + DialogFrame.basicInfo.textDescription.getText() + conDescription);
 			for (int i = 0; i < FileListSelected.listModelSelected.getSize(); i++) {
 				writeLine(conFile + (String) FileListSelected.listModelSelected.getElementAt(i) + conFile);
 			}

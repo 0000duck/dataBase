@@ -1,11 +1,10 @@
 package main.utilities;
 
-import gui.addDialog.CreateInfoDataBaseFile;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import gui.editDialog.CreateInfoDataBaseFile;
 import structure.GroupInfo;
 
 public class DisassembleInfoFile {

@@ -1,4 +1,4 @@
-package gui.addDialog;
+package gui.editDialog;
 
 import main.Main;
 import structure.Group;

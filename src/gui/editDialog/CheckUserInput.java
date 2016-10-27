@@ -1,5 +1,6 @@
-package gui.addDialog;
+package gui.editDialog;
 
+import gui.editDialog.tabGenInfo.BasicInfo;
 
 public class CheckUserInput {
 
@@ -11,7 +12,7 @@ public class CheckUserInput {
 	}
 
 	private void versionCheck() {
-		String scanString = DialogFrame.textVersion.getText();
+		String scanString = DialogFrame.basicInfo.textVersion.getText();
 	   // Scanner scan = new Scanner(scanString);
 		try {
 			Double.parseDouble(scanString); 	//Value must be double for Version

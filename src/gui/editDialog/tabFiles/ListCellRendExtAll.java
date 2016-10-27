@@ -1,4 +1,4 @@
-package gui.addDialog.fileList;
+package gui.editDialog.tabFiles;
 
 import java.awt.Component;
 import java.awt.Font;

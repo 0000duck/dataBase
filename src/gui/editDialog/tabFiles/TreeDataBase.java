@@ -1,4 +1,4 @@
-package gui.addDialog.tree;
+package gui.editDialog.tabFiles;
 
 import gui.utilities.LoadImageIcon;
 

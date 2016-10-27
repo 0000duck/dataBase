@@ -1,6 +1,6 @@
 package gui.table;
 
-import gui.addDialog.DialogFrame;
+import gui.editDialog.DialogFrame;
 import gui.renderer.AdvancedCellRenderer;
 import gui.renderer.TableCellRendererJTextArea;
 import gui.table.displayWindow.DisplayDialog;

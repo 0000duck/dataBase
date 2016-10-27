@@ -1,6 +1,4 @@
-package gui.addDialog.fileList;
-
-import gui.addDialog.DialogFrame;
+package gui.editDialog.tabFiles;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -25,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.TreePath;
+
+import gui.editDialog.DialogFrame;
 
 public class FileListSelected extends JPanel {
 	

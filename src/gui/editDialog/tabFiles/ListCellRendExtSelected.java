@@ -1,6 +1,4 @@
-package gui.addDialog.fileList;
-
-import gui.addDialog.DialogFrame;
+package gui.editDialog.tabFiles;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -14,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
+import gui.editDialog.DialogFrame;
 import utilities.ProjectParam;
 
 public class ListCellRendExtSelected extends DefaultListCellRenderer {

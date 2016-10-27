@@ -1,4 +1,4 @@
-package gui.addDialog;
+package gui.editDialog;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,4 @@
-package gui.addDialog.fileList;
-
-import gui.addDialog.DialogFrame;
+package gui.editDialog.tabFiles;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -36,6 +34,7 @@ import javax.swing.TransferHandler;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.TreePath;
 
+import gui.editDialog.DialogFrame;
 import utilities.ProjectParam;
 
 public class FileListAll extends JPanel {
