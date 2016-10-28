@@ -84,7 +84,7 @@ public class TreeDataBase extends JPanel {
 		// };
 		// m_popup.add(m_action);
 		// m_popup.addSeparator();
-
+		
 		Action aNewFolder = new AbstractAction("New Folder") {
 			public void actionPerformed(ActionEvent e) {
 				String input = JOptionPane.showInputDialog(null, "Folder Name",
@@ -93,8 +93,8 @@ public class TreeDataBase extends JPanel {
 					File newFile = new File(m_display.getText()	+ "\\" + input);
 					System.out.println(m_display.getText() + "\\" + input);
 					newFile.mkdir();
-					m_model.reload(top);
-					//m_tree.repaint();	
+					//m_model.reload(top);
+					//autoOpenTree(m_tree.getSelectionPath());
 				}
 
 			}
@@ -117,10 +117,72 @@ public class TreeDataBase extends JPanel {
 			}
 		};
 		m_popup.add(aOpenDir);
+		
+		
 		m_tree.add(m_popup);
 		m_tree.addMouseListener(new PopupTrigger());
 		setVisible(true);
 	}
+	
+	DefaultMutableTreeNode treeNodeOpen = null;
+	
+	public void autoOpenTree(String clipboardPath) {
+	   
+		System.out.println("-------clipboardPath: " + clipboardPath);
+		DefaultMutableTreeNode child = (DefaultMutableTreeNode) m_tree.getModel().getRoot();
+		treeNodeOpen = null;
+		parseTree(child, clipboardPath);
+		if (treeNodeOpen != null) {
+			TreePath path = new TreePath(treeNodeOpen.getPath());
+			m_tree.expandPath(path);
+		}
+
+	}
+	
+	private void parseTree(DefaultMutableTreeNode child, String clipboardPath) {
+		String nodePath = getPathByNode(child);
+
+		if (nodePath == null || clipboardPath.startsWith(nodePath)) {
+			if (nodePath != null && nodePath.compareTo(clipboardPath) == 0) {
+				//node path is exactly the same. Open this node in tree and jump out
+				treeNodeOpen = child;
+			} else if (child.getChildCount() > 0) {
+				//children found. Try to
+				child = (DefaultMutableTreeNode) child.getChildAt(0);
+				parseTree(child, clipboardPath);
+			} else {
+				//no child found anymore. open current node in tree
+			}
+		} else {
+			//clipboard path does not match to tree path. Try next leaf
+			int childNbr = child.getParent().getIndex(child);
+			if (childNbr + 1 < child.getParent().getChildCount()) {
+				child = (DefaultMutableTreeNode) child.getParent().getChildAt(childNbr + 1);
+				parseTree(child, clipboardPath);	
+			} else {
+				//clipboard path not found in tree. no action
+			}
+		}
+	}
+	
+	
+
+	
+	private String getPathByNode(Object object) {
+		if (object instanceof DefaultMutableTreeNode) {
+			DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) object;
+			System.out.println(treeNode.getClass()  + " " + treeNode.getUserObject());
+			FileNode fnode = getFileNode(treeNode);
+			if (fnode != null && treeNode.getChildCount() > 0) {
+				fnode.expand(treeNode);
+				String getPath = fnode.getFile().getPath();
+				System.out.println(getPath);
+				return getPath;				
+			}
+		}
+		return null;
+	}
+	
 
 	DefaultMutableTreeNode getTreeNode(TreePath path) {
 		return (DefaultMutableTreeNode) (path.getLastPathComponent());
@@ -262,6 +324,7 @@ class IconData {
 	protected Icon m_icon;
 	protected Icon m_expandedIcon;
 	protected Object m_data;
+	protected String m_Path;
 
 	public IconData(Icon icon, Object data) {
 		m_icon = icon;
@@ -286,6 +349,7 @@ class IconData {
 	public Object getObject() {
 		return m_data;
 	}
+	
 
 	public String toString() {
 		return m_data.toString();

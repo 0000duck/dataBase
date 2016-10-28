@@ -6,6 +6,7 @@ import gui.editDialog.tabFiles.TreeDataBase;
 import gui.editDialog.tabGenInfo.BasicInfo;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,18 +15,31 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.TabbedPaneUI;
+import javax.swing.tree.TreePath;
+
+import com.sun.corba.se.spi.orbutil.fsm.Action;
 
 import main.Main;
 import main.utilities.ConvertStructureToArray;
@@ -39,7 +53,7 @@ public class DialogFrame {
 	private static JDialog jDialog;
 	private ShowMessageLabel stateShownField;
 	public static BasicInfo basicInfo = new BasicInfo();
-	private static TreeDataBase treeDataBase;
+	public static TreeDataBase treeDataBase;
 	public static GroupInfo infoData;
 	public static JLabel saveDirectory;
 	public static JButton directoryButton;
@@ -47,6 +61,10 @@ public class DialogFrame {
 	public static FileListSelected fileListSelected = null;
 	public static int row;
 	public static boolean edit;
+	
+	String clipboardPath = null;
+	
+	private JPopupMenu popUp;
 
 	public DialogFrame() {
 		DialogFrame.edit = false;
@@ -236,6 +254,31 @@ public class DialogFrame {
 		JPanel mainPanelSouth = new JPanel(new BorderLayout());
 
 		panelSave.add(createButton);
+		
+		popUp = new JPopupMenu();
+		
+		AbstractAction aGetPath = new AbstractAction("Get Path from Clipboard") {
+			public void actionPerformed(ActionEvent e) {
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Clipboard clipboard = toolkit.getSystemClipboard();
+				clipboardPath = "";
+				try {
+					clipboardPath = (String) clipboard.getData(DataFlavor.stringFlavor);
+				} catch (UnsupportedFlavorException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println("String from Clipboard:" + clipboardPath);	
+				treeDataBase.autoOpenTree(clipboardPath);
+			}
+		};
+		popUp.add(aGetPath);
+		
+		saveDirectory.add(popUp);
+		saveDirectory.addMouseListener(new PopupTrigger());
+		
+		
+		
 		mainPanelSouth.add(panelSave, BorderLayout.CENTER);
 		mainPanel.add(mainPanelSouth, BorderLayout.SOUTH);
 
@@ -244,6 +287,15 @@ public class DialogFrame {
 
 	}
 	
-
+	class PopupTrigger extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			if (e.isPopupTrigger()) {
+				int x = e.getX();
+				int y = e.getY();
+				popUp.show(saveDirectory, x, y);
+			}
+		}
+	}
 
 }
+
